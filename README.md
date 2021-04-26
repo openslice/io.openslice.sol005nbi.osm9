@@ -1,3 +1,3 @@
-# io.openslice.sol005nbi.osm8
+# io.openslice.sol005nbi.osm9
 
-OSM EIGHT NBI implementation
+OSM NINE NBI implementation
