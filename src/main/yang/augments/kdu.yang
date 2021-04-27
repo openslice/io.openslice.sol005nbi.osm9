@@ -35,6 +35,12 @@ module kdu {
             }
         }
     }
+    
+    
+  revision 2017-02-28 {
+    description
+      "Update model to support projects.";
+  }
 
     grouping extended-kdu {
         list kdu {
