@@ -7,6 +7,11 @@ module etsi-nfv-pnfd {
     prefix vnf;
   }
 
+
+  revision 2017-02-28 {
+    description
+      "Update model to support projects.";
+  }
   organization
     "European Telecommunications Standards Institute (ETSI)";
 

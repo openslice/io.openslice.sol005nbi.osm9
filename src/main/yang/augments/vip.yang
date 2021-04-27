@@ -23,6 +23,12 @@ module vip {
     import etsi-nfv-vnfd {
         prefix vnfd;
     }
+    
+    
+  revision 2017-02-28 {
+    description
+      "Update model to support projects.";
+  }
 
     grouping extended-vip {
         list vip {
