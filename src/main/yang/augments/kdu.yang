@@ -25,6 +25,7 @@ module kdu {
     }
 
     grouping extended-ext-cpd {
+    /*
         leaf k8s-cluster-net {
             description
               "Reference to the K8s cluster network
@@ -34,6 +35,7 @@ module kdu {
                 path "/vnfd:vnfd/kdu:k8s-cluster/kdu:nets/kdu:id";
             }
         }
+        */
     }
     
     

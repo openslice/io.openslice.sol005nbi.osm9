@@ -91,7 +91,7 @@ module ns-vld {
 
            leaf constituent-cpd-id {
                type leafref {
-                   path "deref(../../../nsd:vnfd-id)/../nsd:ext-cpd/nsd:id";
+                   path "../nsd:ext-cpd/nsd:id";
                }
                description
                  "A reference to the descriptor of a connection point

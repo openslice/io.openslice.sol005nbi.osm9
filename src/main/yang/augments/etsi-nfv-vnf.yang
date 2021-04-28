@@ -1385,8 +1385,7 @@ submodule etsi-nfv-vnf {
 
         leaf flavour {
           type leafref {
-            path "deref(../../../ext-cpd/int-virtual-link-desc)" +
-                 "/../flavour/id";
+            path "../../../flavour/id";
           }
           description
             "Identifies a flavour within the VnfVirtualLinkDesc.";
