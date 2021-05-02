@@ -24,17 +24,15 @@ module kdu {
         prefix vnfd;
     }
 
-    grouping extended-ext-cpd {
-        leaf k8s-cluster-net {
-            description
-              "Reference to the K8s cluster network
-               to which CPs instantiated from this external CP
-               Descriptor (CPD) connect.";
-            type leafref {
-                path "/vnfd:vnfd/kdu:k8s-cluster/kdu:nets/kdu:id";
-            }
-        }
-    }
+//    grouping extended-ext-cpd {
+//        leaf k8s-cluster-net {
+//            description "Reference to the K8s cluster network to which CPs instantiated from this external CP Descriptor (CPD) connect.";
+//            type string;
+////            type leafref {
+////                path "/vnfd:vnfd/kdu:k8s-cluster/kdu:nets/kdu:id";
+////            }
+//        }
+//    }
 
     grouping extended-kdu {
         list kdu {
@@ -173,7 +171,7 @@ module kdu {
         uses extended-kdu;
     }
 
-    augment "/vnfd:vnfd/vnfd:ext-cpd/vnfd:cp-connection" {
-        uses extended-ext-cpd;
-    }
+//    augment "/vnfd:vnfd/vnfd:ext-cpd/vnfd:cp-connection" {
+//        uses extended-ext-cpd;
+//    }
 }

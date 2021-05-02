@@ -722,9 +722,10 @@ module vnfd-base
           leaf external-connection-point-ref {
             description
               "Leaf Ref to the particular external connection point";
-            type leafref {
-              path "../../../connection-point/name";
-            }
+            type string;
+//            type leafref {
+//              path "../../../connection-point/name";
+//            }
           }
 
         }
@@ -767,13 +768,14 @@ module vnfd-base
             type string;
           }
 
-          leaf external-connection-point-ref {
-            description
-              "Leaf Ref to the particular external connection point";
-            type leafref {
-              path "../../../connection-point/name";
-            }
-          }
+//          leaf external-connection-point-ref {
+//            description
+//              "Leaf Ref to the particular external connection point";
+//            type string;
+//            type leafref {
+//              path "../../../connection-point/name";
+//            }
+//          }
 
         }
       }
