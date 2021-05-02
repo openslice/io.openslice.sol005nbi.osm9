@@ -90,10 +90,11 @@ module ns-vld {
            }
 
            leaf constituent-cpd-id {
-        	   type string;
-//               type leafref {
-//                   path "deref(../../../nsd:vnfd-id)/../nsd:ext-cpd/nsd:id";
-//               }
+          	   //type string;        	   
+			   type leafref {
+	        	   path "../nsd:ext-cpd/nsd:id";
+			   //    path "deref(../../../nsd:vnfd-id)/../nsd:ext-cpd/nsd:id";
+			   }
                description
                  "A reference to the descriptor of a connection point
                   attached to one of the constituent VNFs and PNFs or to

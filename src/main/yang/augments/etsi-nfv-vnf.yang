@@ -1155,19 +1155,19 @@ submodule etsi-nfv-vnf {
 
                     leaf cpd {
                         type string;
-                        //                        type leafref {
-                        //                            path "deref(../vdu-id)/../int-cpd/id";
-                        //                        }
+						//type leafref {
+						//    path "deref(../vdu-id)/../int-cpd/id";
+						//}
                     }
                 }
 
                 leaf k8s-cluster-net {
                     description "Reference to the K8s cluster network to which CPs instantiated
                                         from this external CP Descriptor (CPD) connect.";
-					type string;
-                    //type leafref {
-                    //    path "/vnfd:vnfd/kdu:k8s-cluster/kdu:nets/kdu:id";
-                    //}
+                    type string;
+					//type leafref {
+					//    path "/vnfd:vnfd/kdu:k8s-cluster/kdu:nets/kdu:id";
+					//}
                 }
             }
             uses virtual-network-interface-requirements;
@@ -1305,11 +1305,12 @@ submodule etsi-nfv-vnf {
                 }
 
                 leaf flavour {
-                    type string;
-                    //                    type leafref {
-                    //                        path "deref(../../../ext-cpd/int-virtual-link-desc)" +
-                    //                                                "/../flavour/id";
-                    //                    }
+                    //type string;
+                    type leafref {
+                        path "../../../flavour/id";
+                        //path "deref(../../../ext-cpd/int-virtual-link-desc)" +
+                        //                        "/../flavour/id";
+                    }
                     description
                                         "Identifies a flavour within the VnfVirtualLinkDesc.";
                     reference
