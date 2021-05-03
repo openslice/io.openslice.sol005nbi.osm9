@@ -1,4 +1,5 @@
 package org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.vnfd;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;
 import java.lang.Class;
 import java.lang.Deprecated;
@@ -343,15 +344,17 @@ public class VduBuilder implements Builder<Vdu> {
         private final List<BootOrder> _bootOrder;
         private final Map<ConfigurablePropertiesKey, ConfigurableProperties> _configurableProperties;
         private final String _description;
+        @JsonProperty("id")         
         private final String _id;
         private final Map<IntCpdKey, IntCpd> _intCpd;
         private final Map<MonitoringParameterKey, MonitoringParameter> _monitoringParameter;
+        @JsonProperty("name")         
         private final String _name;
         private final List<String> _nfviConstraint;
         private final String _swImageDesc;
         private final String _virtualComputeDesc;
         private final List<String> _virtualStorageDesc;
-        private final VduKey key;
+        private VduKey key;
     
         VduImpl(VduBuilder base) {
             super(base.augmentation);
@@ -381,6 +384,11 @@ public class VduBuilder implements Builder<Vdu> {
         
         @Override
         public VduKey key() {
+        	
+        	if ( ( key != null) && ( key.getId() == null) && ( _id != null) ) {
+        		key = new VduKey(_id);        		
+        	}
+        	
             return key;
         }
         
