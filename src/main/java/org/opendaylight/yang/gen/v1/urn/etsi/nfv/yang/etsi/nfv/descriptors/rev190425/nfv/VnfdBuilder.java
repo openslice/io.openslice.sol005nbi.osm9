@@ -127,7 +127,7 @@ public class VnfdBuilder implements Builder<Vnfd> {
         this._vnfmInfo = arg.getVnfmInfo();
         this._localizationLanguage = arg.getLocalizationLanguage();
         this._defaultLocalizationLanguage = arg.getDefaultLocalizationLanguage();
-        //this._vdu = arg.getVdu();
+        this._vdu = arg.getVdu();
         this._virtualComputeDesc = arg.getVirtualComputeDesc();
         this._virtualStorageDesc = arg.getVirtualStorageDesc();
         this._swImageDesc = arg.getSwImageDesc();
@@ -174,7 +174,7 @@ public class VnfdBuilder implements Builder<Vnfd> {
         this._securityGroupRule = base.getSecurityGroupRule();
         this._softwareVersion = base.getSoftwareVersion();
         this._swImageDesc = base.getSwImageDesc();
-        //this._vdu = base.getVdu();
+        this._vdu = base.getVdu();
         this._version = base.getVersion();
         this._virtualComputeDesc = base.getVirtualComputeDesc();
         this._virtualStorageDesc = base.getVirtualStorageDesc();
