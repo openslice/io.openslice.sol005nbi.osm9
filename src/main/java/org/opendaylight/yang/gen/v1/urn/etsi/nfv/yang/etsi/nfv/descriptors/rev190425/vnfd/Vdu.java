@@ -1,13 +1,12 @@
 package org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.vnfd;
-import java.lang.Class;
-import java.lang.Override;
-import java.lang.String;
 import java.util.List;
 import java.util.Map;
+
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.$YangModuleInfoImpl;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.Vnfd;
+import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.vnfd.VduBuilder.VduImpl;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.vnfd.vdu.BootOrder;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.vnfd.vdu.ConfigurableProperties;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.vnfd.vdu.ConfigurablePropertiesKey;
@@ -20,6 +19,8 @@ import org.opendaylight.yangtools.yang.binding.ChildOf;
 import org.opendaylight.yangtools.yang.binding.CodeHelpers;
 import org.opendaylight.yangtools.yang.binding.Identifiable;
 import org.opendaylight.yangtools.yang.common.QName;
+
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * The Virtualisation Deployment Unit (VDU) is a construct supporting the 
@@ -128,6 +129,7 @@ import org.opendaylight.yangtools.yang.common.QName;
  * @see VduKey
  *
  */
+@JsonDeserialize(as = VduImpl.class)
 public interface Vdu
     extends
     ChildOf<Vnfd>,

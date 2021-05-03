@@ -720,8 +720,7 @@ public class VnfdBuilder implements Builder<Vnfd> {
         private final Map<SecurityGroupRuleKey, SecurityGroupRule> _securityGroupRule;
         private final String _softwareVersion;
         private final Map<SwImageDescKey, SwImageDesc> _swImageDesc;
-        @JsonProperty("vdu")
-        public final Map<VduKey, Vdu> _vdu;
+        private Map<VduKey, Vdu> _vdu;
         private final String _version;
         private final Map<VirtualComputeDescKey, VirtualComputeDesc> _virtualComputeDesc;
         private final Map<VirtualStorageDescKey, VirtualStorageDesc> _virtualStorageDesc;
@@ -863,6 +862,10 @@ public class VnfdBuilder implements Builder<Vnfd> {
         @Override
         public Map<SwImageDescKey, SwImageDesc> getSwImageDesc() {
             return _swImageDesc;
+        }
+        
+        public Map<VduKey, Vdu> setVdu(final List<Vdu> values) {
+            return _vdu = CodeHelpers.compatMap(values) ;
         }
         
         @Override

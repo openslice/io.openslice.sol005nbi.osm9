@@ -335,7 +335,7 @@ public class VduBuilder implements Builder<Vdu> {
         return new VduImpl(this);
     }
 
-    private static final class VduImpl
+    public static final class VduImpl
         extends AbstractAugmentable<Vdu>
         implements Vdu {
     
@@ -374,6 +374,11 @@ public class VduBuilder implements Builder<Vdu> {
             this._virtualStorageDesc = base.getVirtualStorageDesc();
         }
     
+        public VduImpl() {
+        	this( new VduBuilder());
+        }
+        
+        
         @Override
         public VduKey key() {
             return key;
