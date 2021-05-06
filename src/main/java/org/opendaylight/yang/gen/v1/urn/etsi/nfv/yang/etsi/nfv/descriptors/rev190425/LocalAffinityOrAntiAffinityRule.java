@@ -5,9 +5,13 @@ import java.util.Map;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.local.affinity.or.anti.affinity.rule.LocalAffinityOrAntiAffinityRuleKey;
+import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.local.affinity.or.anti.affinity.rule.LocalAffinityOrAntiAffinityRuleBuilder.LocalAffinityOrAntiAffinityRuleImpl;
 import org.opendaylight.yangtools.yang.binding.CodeHelpers;
 import org.opendaylight.yangtools.yang.binding.DataObject;
 import org.opendaylight.yangtools.yang.common.QName;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * 
@@ -29,6 +33,8 @@ import org.opendaylight.yangtools.yang.common.QName;
  * <i>etsi-nfv-descriptors/local-affinity-or-anti-affinity-rule</i>
  *
  */
+@JsonDeserialize(as = LocalAffinityOrAntiAffinityRuleImpl.class)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public interface LocalAffinityOrAntiAffinityRule
     extends
     DataObject

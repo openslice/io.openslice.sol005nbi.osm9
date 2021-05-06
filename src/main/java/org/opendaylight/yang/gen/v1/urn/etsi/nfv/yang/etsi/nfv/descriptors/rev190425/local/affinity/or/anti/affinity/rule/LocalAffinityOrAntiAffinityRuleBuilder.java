@@ -168,7 +168,7 @@ public class LocalAffinityOrAntiAffinityRuleBuilder implements Builder<LocalAffi
         return new LocalAffinityOrAntiAffinityRuleImpl(this);
     }
 
-    private static final class LocalAffinityOrAntiAffinityRuleImpl
+    public static final class LocalAffinityOrAntiAffinityRuleImpl
         extends AbstractAugmentable<LocalAffinityOrAntiAffinityRule>
         implements LocalAffinityOrAntiAffinityRule {
     
@@ -186,7 +186,10 @@ public class LocalAffinityOrAntiAffinityRuleBuilder implements Builder<LocalAffi
             this._affinityScope = key.getAffinityScope();
             this._affinityType = key.getAffinityType();
         }
-    
+        
+        public LocalAffinityOrAntiAffinityRuleImpl() {
+        	this( new LocalAffinityOrAntiAffinityRuleBuilder());
+        }    
         @Override
         public LocalAffinityOrAntiAffinityRuleKey key() {
             return key;

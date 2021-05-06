@@ -383,12 +383,10 @@ public class VduBuilder implements Builder<Vdu> {
         
         
         @Override
-        public VduKey key() {
-        	
+        public VduKey key() {        	
         	if ( ( key != null) && ( key.getId() == null) && ( _id != null) ) {
         		key = new VduKey(_id);        		
-        	}
-        	
+        	}        	
             return key;
         }
         

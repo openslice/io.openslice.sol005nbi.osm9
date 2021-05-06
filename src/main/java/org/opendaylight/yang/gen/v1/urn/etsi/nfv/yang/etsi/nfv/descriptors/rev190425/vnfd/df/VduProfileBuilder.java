@@ -1,4 +1,5 @@
 package org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.vnfd.df;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects;
 import java.lang.Class;
 import java.lang.Deprecated;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.local.affinity.or.anti.affinity.rule.LocalAffinityOrAntiAffinityRule;
+import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.local.affinity.or.anti.affinity.rule.LocalAffinityOrAntiAffinityRuleBuilder;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.local.affinity.or.anti.affinity.rule.LocalAffinityOrAntiAffinityRuleKey;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.vnfd.df.vdu.profile.AffinityOrAntiAffinityGroup;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.vnfd.df.vdu.profile.AffinityOrAntiAffinityGroupKey;
@@ -284,12 +286,13 @@ public class VduProfileBuilder implements Builder<VduProfile> {
         return new VduProfileImpl(this);
     }
 
-    private static final class VduProfileImpl
+    public static final class VduProfileImpl
         extends AbstractAugmentable<VduProfile>
         implements VduProfile {
     
         private final Map<AffinityOrAntiAffinityGroupKey, AffinityOrAntiAffinityGroup> _affinityOrAntiAffinityGroup;
         private final String _id;
+        @JsonDeserialize(keyUsing = LocalAffinityOrAntiAffinityRuleKey.class)            
         private final Map<LocalAffinityOrAntiAffinityRuleKey, LocalAffinityOrAntiAffinityRule> _localAffinityOrAntiAffinityRule;
         private final Uint16 _maxNumberOfInstances;
         private final Uint16 _minNumberOfInstances;
@@ -308,7 +311,11 @@ public class VduProfileBuilder implements Builder<VduProfile> {
             this._maxNumberOfInstances = base.getMaxNumberOfInstances();
             this._minNumberOfInstances = base.getMinNumberOfInstances();
         }
-    
+
+        public VduProfileImpl() {
+        	this( new VduProfileBuilder());
+        }    
+        
         @Override
         public VduProfileKey key() {
             return key;

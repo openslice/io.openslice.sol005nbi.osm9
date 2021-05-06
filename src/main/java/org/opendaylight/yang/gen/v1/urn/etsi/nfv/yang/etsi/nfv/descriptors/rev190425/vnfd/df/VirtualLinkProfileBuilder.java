@@ -1,4 +1,5 @@
 package org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.vnfd.df;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects;
 import java.lang.Class;
 import java.lang.Deprecated;
@@ -283,18 +284,19 @@ public class VirtualLinkProfileBuilder implements Builder<VirtualLinkProfile> {
         return new VirtualLinkProfileImpl(this);
     }
 
-    private static final class VirtualLinkProfileImpl
+    public static final class VirtualLinkProfileImpl
         extends AbstractAugmentable<VirtualLinkProfile>
         implements VirtualLinkProfile {
     
         private final Map<AffinityOrAntiAffinityGroupKey, AffinityOrAntiAffinityGroup> _affinityOrAntiAffinityGroup;
-        private final Object _flavour;
+        private Object _flavour;
         private final String _id;
+        @JsonDeserialize(keyUsing = LocalAffinityOrAntiAffinityRuleKey.class)        
         private final Map<LocalAffinityOrAntiAffinityRuleKey, LocalAffinityOrAntiAffinityRule> _localAffinityOrAntiAffinityRule;
         private final MaxBitRateRequirements _maxBitRateRequirements;
         private final MinBitRateRequirements _minBitRateRequirements;
         private final VirtualLinkProtocolData _virtualLinkProtocolData;
-        private final VirtualLinkProfileKey key;
+        private VirtualLinkProfileKey key;
     
         VirtualLinkProfileImpl(VirtualLinkProfileBuilder base) {
             super(base.augmentation);
@@ -312,11 +314,20 @@ public class VirtualLinkProfileBuilder implements Builder<VirtualLinkProfile> {
             this._virtualLinkProtocolData = base.getVirtualLinkProtocolData();
         }
     
+        public VirtualLinkProfileImpl() {
+        	this( new VirtualLinkProfileBuilder());
+        }
+                                
         @Override
-        public VirtualLinkProfileKey key() {
+        public VirtualLinkProfileKey key() {        	
+        	if ( ( key != null) && ( key.getId() == null) && ( _id != null) ) {
+        		if(_flavour == null)
+        			_flavour="";
+        		key = new VirtualLinkProfileKey(_flavour, _id);        		
+        	}        	
             return key;
         }
-        
+                
         @Override
         public Map<AffinityOrAntiAffinityGroupKey, AffinityOrAntiAffinityGroup> getAffinityOrAntiAffinityGroup() {
             return _affinityOrAntiAffinityGroup;

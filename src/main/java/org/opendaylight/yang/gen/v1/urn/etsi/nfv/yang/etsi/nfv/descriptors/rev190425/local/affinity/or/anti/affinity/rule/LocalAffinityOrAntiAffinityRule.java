@@ -6,10 +6,14 @@ import org.eclipse.jdt.annotation.Nullable;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.$YangModuleInfoImpl;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.AffinityScope;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.AffinityType;
+import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.local.affinity.or.anti.affinity.rule.LocalAffinityOrAntiAffinityRuleBuilder.LocalAffinityOrAntiAffinityRuleImpl;
 import org.opendaylight.yangtools.yang.binding.Augmentable;
 import org.opendaylight.yangtools.yang.binding.ChildOf;
 import org.opendaylight.yangtools.yang.binding.Identifiable;
 import org.opendaylight.yangtools.yang.common.QName;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * 
@@ -33,6 +37,8 @@ import org.opendaylight.yangtools.yang.common.QName;
  * @see LocalAffinityOrAntiAffinityRuleKey
  *
  */
+@JsonDeserialize(as = LocalAffinityOrAntiAffinityRuleImpl.class)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public interface LocalAffinityOrAntiAffinityRule
     extends
     ChildOf<org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.LocalAffinityOrAntiAffinityRule>,

@@ -1,4 +1,5 @@
 package org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.vnfd;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects;
 import java.lang.Class;
 import java.lang.Deprecated;
@@ -442,10 +443,9 @@ public class DfBuilder implements Builder<Df> {
         return new DfImpl(this);
     }
 
-    private static final class DfImpl
+    public static final class DfImpl
         extends AbstractAugmentable<Df>
         implements Df {
-    
         private final Map<AffinityOrAntiAffinityGroupKey, AffinityOrAntiAffinityGroup> _affinityOrAntiAffinityGroup;
         private final String _defaultInstantiationLevel;
         private final String _description;
@@ -458,8 +458,9 @@ public class DfBuilder implements Builder<Df> {
         private final List<Class<? extends SupportedOperation>> _supportedOperation;
         private final Map<SupportedVnfInterfacesKey, SupportedVnfInterfaces> _supportedVnfInterfaces;
         private final Map<VduProfileKey, VduProfile> _vduProfile;
+        @JsonDeserialize(keyUsing = VirtualLinkProfileKey.class)
         private final Map<VirtualLinkProfileKey, VirtualLinkProfile> _virtualLinkProfile;
-        private final DfKey key;
+        private DfKey key;
     
         DfImpl(DfBuilder base) {
             super(base.augmentation);
@@ -482,12 +483,20 @@ public class DfBuilder implements Builder<Df> {
             this._vduProfile = CodeHelpers.emptyToNull(base.getVduProfile());
             this._virtualLinkProfile = CodeHelpers.emptyToNull(base.getVirtualLinkProfile());
         }
-    
-        @Override
-        public DfKey key() {
-            return key;
+
+        public DfImpl() {
+        	this( new DfBuilder());
         }
         
+        
+        @Override
+        public DfKey key() {        	
+        	if ( ( key != null) && ( key.getId() == null) && ( _id != null) ) {
+        		key = new DfKey(_id);        		
+        	}        	
+            return key;
+        }
+                
         @Override
         public Map<AffinityOrAntiAffinityGroupKey, AffinityOrAntiAffinityGroup> getAffinityOrAntiAffinityGroup() {
             return _affinityOrAntiAffinityGroup;

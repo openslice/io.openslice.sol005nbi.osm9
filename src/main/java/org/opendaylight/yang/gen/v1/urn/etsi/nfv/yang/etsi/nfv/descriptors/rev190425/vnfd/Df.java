@@ -9,6 +9,7 @@ import org.eclipse.jdt.annotation.Nullable;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.$YangModuleInfoImpl;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.SupportedOperation;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.Vnfd;
+import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.vnfd.DfBuilder.DfImpl;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.vnfd.df.AffinityOrAntiAffinityGroup;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.vnfd.df.AffinityOrAntiAffinityGroupKey;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.vnfd.df.Indicator;
@@ -31,6 +32,9 @@ import org.opendaylight.yangtools.yang.binding.ChildOf;
 import org.opendaylight.yangtools.yang.binding.CodeHelpers;
 import org.opendaylight.yangtools.yang.binding.Identifiable;
 import org.opendaylight.yangtools.yang.common.QName;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * Describes a specific Deployment Flavour (DF) of a VNF with specific 
@@ -466,6 +470,8 @@ import org.opendaylight.yangtools.yang.common.QName;
  * @see DfKey
  *
  */
+@JsonDeserialize(as = DfImpl.class)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public interface Df
     extends
     ChildOf<Vnfd>,

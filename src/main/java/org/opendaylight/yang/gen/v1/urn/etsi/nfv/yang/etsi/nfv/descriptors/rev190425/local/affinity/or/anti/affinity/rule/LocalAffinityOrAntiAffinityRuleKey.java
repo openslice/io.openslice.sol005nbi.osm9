@@ -1,5 +1,9 @@
 package org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.local.affinity.or.anti.affinity.rule;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.KeyDeserializer;
 import com.google.common.base.MoreObjects;
+
+import java.io.IOException;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Objects;
@@ -8,13 +12,18 @@ import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev19
 import org.opendaylight.yangtools.yang.binding.CodeHelpers;
 import org.opendaylight.yangtools.yang.binding.Identifier;
 
-public class LocalAffinityOrAntiAffinityRuleKey
+public class LocalAffinityOrAntiAffinityRuleKey extends KeyDeserializer
  implements Identifier<LocalAffinityOrAntiAffinityRule> {
     private static final long serialVersionUID = -2457432228320345751L;
     private final AffinityType _affinityType;
     private final AffinityScope _affinityScope;
 
 
+    public LocalAffinityOrAntiAffinityRuleKey() {
+        this._affinityType = null;
+        this._affinityScope = null;
+    }
+    
     public LocalAffinityOrAntiAffinityRuleKey(AffinityScope _affinityScope, AffinityType _affinityType) {
     
         this._affinityType = _affinityType;
@@ -75,5 +84,11 @@ public class LocalAffinityOrAntiAffinityRuleKey
         CodeHelpers.appendValue(helper, "_affinityScope", _affinityScope);
         return helper.toString();
     }
+
+	@Override
+	public Object deserializeKey(String key, DeserializationContext ctxt) throws IOException {
+		// TODO Auto-generated method stub
+		return this.toString();
+	}
 }
 

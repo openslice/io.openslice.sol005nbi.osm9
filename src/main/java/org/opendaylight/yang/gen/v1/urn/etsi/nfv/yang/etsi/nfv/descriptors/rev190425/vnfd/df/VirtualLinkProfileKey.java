@@ -1,19 +1,33 @@
 package org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.vnfd.df;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.KeyDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects;
+
+import java.io.IOException;
 import java.lang.Object;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Objects;
+
 import org.opendaylight.yangtools.yang.binding.CodeHelpers;
 import org.opendaylight.yangtools.yang.binding.Identifier;
 
-public class VirtualLinkProfileKey
+public class VirtualLinkProfileKey extends KeyDeserializer
  implements Identifier<VirtualLinkProfile> {
     private static final long serialVersionUID = 1298066409440857060L;
     private final String _id;
     private final Object _flavour;
 
 
+    public VirtualLinkProfileKey() {
+    	// This might be also null, or not id/flavor not final.
+        this._id = "";
+        this._flavour = "";
+    }
+    
     public VirtualLinkProfileKey(Object _flavour, String _id) {
     
         this._id = _id;
@@ -74,5 +88,11 @@ public class VirtualLinkProfileKey
         CodeHelpers.appendValue(helper, "_flavour", _flavour);
         return helper.toString();
     }
+
+	@Override
+	public Object deserializeKey(String key, DeserializationContext ctxt) throws IOException {
+		// TODO Auto-generated method stub
+		return this.toString();
+	}
 }
 
