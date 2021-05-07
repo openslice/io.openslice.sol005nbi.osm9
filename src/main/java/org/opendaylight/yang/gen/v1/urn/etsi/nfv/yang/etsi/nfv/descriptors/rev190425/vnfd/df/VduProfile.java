@@ -65,7 +65,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  *
  */
 @JsonDeserialize(as = VduProfileImpl.class)
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties(value = {"localAffinityOrAntiAffinityRule"}, ignoreUnknown = true)
 public interface VduProfile
     extends
     ChildOf<Df>,
