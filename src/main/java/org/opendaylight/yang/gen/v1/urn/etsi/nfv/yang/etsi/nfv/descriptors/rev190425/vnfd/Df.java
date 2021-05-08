@@ -530,6 +530,7 @@ public interface Df
      *
      * @return <code>java.util.Map</code> <code>virtualLinkProfile</code>, or <code>null</code> if not present
      */
+    @JsonDeserialize(keyUsing = VirtualLinkProfileKey.class)
     @Nullable Map<VirtualLinkProfileKey, VirtualLinkProfile> getVirtualLinkProfile();
     
     /**

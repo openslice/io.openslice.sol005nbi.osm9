@@ -1,4 +1,5 @@
 package org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.vnfd;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects;
 import java.lang.Class;
@@ -458,7 +459,7 @@ public class DfBuilder implements Builder<Df> {
         private final List<Class<? extends SupportedOperation>> _supportedOperation;
         private final Map<SupportedVnfInterfacesKey, SupportedVnfInterfaces> _supportedVnfInterfaces;
         private final Map<VduProfileKey, VduProfile> _vduProfile;
-        @JsonDeserialize(keyUsing = VirtualLinkProfileKey.class)
+        //@JsonDeserialize(keyUsing = VirtualLinkProfileKey.class)
         private final Map<VirtualLinkProfileKey, VirtualLinkProfile> _virtualLinkProfile;
         private DfKey key;
     
