@@ -1,4 +1,5 @@
 package org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.vnfd;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;
 import java.lang.Boolean;
 import java.lang.Class;
@@ -246,17 +247,18 @@ public class VirtualStorageDescBuilder implements Builder<VirtualStorageDesc> {
         return new VirtualStorageDescImpl(this);
     }
 
-    private static final class VirtualStorageDescImpl
+    public static final class VirtualStorageDescImpl
         extends AbstractAugmentable<VirtualStorageDesc>
         implements VirtualStorageDesc {
     
+    	@JsonProperty("id")
         private final String _id;
         private final Uint64 _sizeOfStorage;
         private final String _swImageDesc;
         private final Class<? extends StorageType> _typeOfStorage;
         private final Map<VduStorageRequirementsKey, VduStorageRequirements> _vduStorageRequirements;
         private final Boolean _rdmaEnabled;
-        private final VirtualStorageDescKey key;
+        private VirtualStorageDescKey key;
     
         VirtualStorageDescImpl(VirtualStorageDescBuilder base) {
             super(base.augmentation);
@@ -273,8 +275,15 @@ public class VirtualStorageDescBuilder implements Builder<VirtualStorageDesc> {
             this._rdmaEnabled = base.isRdmaEnabled();
         }
     
+        public VirtualStorageDescImpl() {
+        	this( new VirtualStorageDescBuilder());
+        }
+        
         @Override
         public VirtualStorageDescKey key() {
+        	if ( ( key != null) && ( key.getId() == null) && ( _id != null) ) {
+        		key = new VirtualStorageDescKey(_id);        		
+        	}
             return key;
         }
         

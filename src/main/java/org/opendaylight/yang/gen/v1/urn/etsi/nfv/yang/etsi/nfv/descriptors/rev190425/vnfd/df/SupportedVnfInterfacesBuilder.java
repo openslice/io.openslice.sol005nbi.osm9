@@ -202,6 +202,7 @@ public class SupportedVnfInterfacesBuilder implements Builder<SupportedVnfInterf
         implements SupportedVnfInterfaces {
     
         private final List<String> _cpdId;
+        
         private final Map<InterfaceDetailsKey, InterfaceDetails> _interfaceDetails;
         private final SupportedVnfInterfaces.Name _name;
         private final SupportedVnfInterfacesKey key;

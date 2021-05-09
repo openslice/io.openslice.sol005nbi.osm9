@@ -1,17 +1,25 @@
 package org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.vnfd.df;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.KeyDeserializer;
 import com.google.common.base.MoreObjects;
+
+import java.io.IOException;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Objects;
 import org.opendaylight.yangtools.yang.binding.CodeHelpers;
 import org.opendaylight.yangtools.yang.binding.Identifier;
 
-public class SupportedVnfInterfacesKey
+public class SupportedVnfInterfacesKey extends KeyDeserializer
  implements Identifier<SupportedVnfInterfaces> {
     private static final long serialVersionUID = -2854504684379865139L;
     private final SupportedVnfInterfaces.Name _name;
 
 
+    public SupportedVnfInterfacesKey() {
+        this._name = null;
+    }
+    
     public SupportedVnfInterfacesKey(SupportedVnfInterfaces.Name _name) {
     
         this._name = _name;
@@ -58,5 +66,11 @@ public class SupportedVnfInterfacesKey
         CodeHelpers.appendValue(helper, "_name", _name);
         return helper.toString();
     }
+
+	@Override
+	public Object deserializeKey(String key, DeserializationContext ctxt) throws IOException {
+		// TODO Auto-generated method stub
+		return this.toString();
+	}
 }
 

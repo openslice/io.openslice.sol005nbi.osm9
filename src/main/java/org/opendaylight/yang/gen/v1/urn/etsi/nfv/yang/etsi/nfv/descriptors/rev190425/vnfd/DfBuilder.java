@@ -457,9 +457,9 @@ public class DfBuilder implements Builder<Df> {
         private final Map<MonitoringParameterKey, MonitoringParameter> _monitoringParameter;
         private final Map<ScalingAspectKey, ScalingAspect> _scalingAspect;
         private final List<Class<? extends SupportedOperation>> _supportedOperation;
+        @JsonDeserialize(keyUsing = SupportedVnfInterfacesKey.class)                        
         private final Map<SupportedVnfInterfacesKey, SupportedVnfInterfaces> _supportedVnfInterfaces;
         private final Map<VduProfileKey, VduProfile> _vduProfile;
-        //@JsonDeserialize(keyUsing = VirtualLinkProfileKey.class)
         private final Map<VirtualLinkProfileKey, VirtualLinkProfile> _virtualLinkProfile;
         private DfKey key;
     

@@ -1018,8 +1018,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  *
  */
 @JsonDeserialize(as = VnfdImpl.class)
-//@JsonIgnoreProperties( {"meta", "http-endpoint", "_admin"} )
-@JsonIgnoreProperties(ignoreUnknown = true)
+@JsonIgnoreProperties(value= {"df"}, ignoreUnknown = true)
 public interface Vnfd
     extends
     DataObject,

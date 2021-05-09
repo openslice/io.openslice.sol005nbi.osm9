@@ -707,6 +707,7 @@ public class VnfdBuilder implements Builder<Vnfd> {
         private final Map<DfKey, Df> _df;
         private final Map<ElementGroupKey, ElementGroup> _elementGroup;
         private final Map<ExtCpdKey, ExtCpd> _extCpd;
+        @JsonProperty("id")
         private final String _id;
         private final Map<IndicatorKey, Indicator> _indicator;
         private final Map<IntVirtualLinkDescKey, IntVirtualLinkDesc> _intVirtualLinkDesc;
@@ -715,6 +716,7 @@ public class VnfdBuilder implements Builder<Vnfd> {
         private final ModifiableAttributes _modifiableAttributes;
         private final String _productInfoDescription;
         private final String _productInfoName;
+        @JsonProperty("product-name")
         private final String _productName;
         private final String _provider;
         private final Map<SecurityGroupRuleKey, SecurityGroupRule> _securityGroupRule;
@@ -722,7 +724,7 @@ public class VnfdBuilder implements Builder<Vnfd> {
         private final Map<SwImageDescKey, SwImageDesc> _swImageDesc;
         private Map<VduKey, Vdu> _vdu;
         private final String _version;
-        private final Map<VirtualComputeDescKey, VirtualComputeDesc> _virtualComputeDesc;
+        private Map<VirtualComputeDescKey, VirtualComputeDesc> _virtualComputeDesc;
         private final Map<VirtualStorageDescKey, VirtualStorageDesc> _virtualStorageDesc;
         private final List<String> _vnfmInfo;
         private final VnfdKey key;
@@ -868,6 +870,9 @@ public class VnfdBuilder implements Builder<Vnfd> {
             return _vdu = CodeHelpers.compatMap(values) ;
         }
         
+        public Map<VirtualComputeDescKey, VirtualComputeDesc> setVirtualComputeDesc(final List<VirtualComputeDesc> values) {
+            return _virtualComputeDesc = CodeHelpers.compatMap(values) ;
+        }        
         @Override
         public Map<VduKey, Vdu> getVdu() {
             return _vdu;

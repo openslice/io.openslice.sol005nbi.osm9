@@ -9,6 +9,7 @@ import org.eclipse.jdt.annotation.Nullable;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.$YangModuleInfoImpl;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.StorageType;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.Vnfd;
+import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.vnfd.VirtualStorageDescBuilder.VirtualStorageDescImpl;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.vnfd.virtual.storage.desc.VduStorageRequirements;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.vnfd.virtual.storage.desc.VduStorageRequirementsKey;
 import org.opendaylight.yangtools.yang.binding.Augmentable;
@@ -17,6 +18,9 @@ import org.opendaylight.yangtools.yang.binding.CodeHelpers;
 import org.opendaylight.yangtools.yang.binding.Identifiable;
 import org.opendaylight.yangtools.yang.common.QName;
 import org.opendaylight.yangtools.yang.common.Uint64;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * Storage requirements for a Virtual Storage instance attached to the VNFC 
@@ -68,6 +72,8 @@ import org.opendaylight.yangtools.yang.common.Uint64;
  * @see VirtualStorageDescKey
  *
  */
+@JsonDeserialize(as = VirtualStorageDescImpl.class)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public interface VirtualStorageDesc
     extends
     ChildOf<Vnfd>,
