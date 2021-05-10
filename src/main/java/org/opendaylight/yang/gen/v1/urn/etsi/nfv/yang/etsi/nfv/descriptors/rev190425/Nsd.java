@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
+import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.nfv.NsdBuilder.NsdImpl;
+import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.nfv.VnfdBuilder.VnfdImpl;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.nsd.Df;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.nsd.DfKey;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.nsd.LifecycleManagementScript;
@@ -19,6 +21,9 @@ import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev19
 import org.opendaylight.yangtools.yang.binding.CodeHelpers;
 import org.opendaylight.yangtools.yang.binding.DataObject;
 import org.opendaylight.yangtools.yang.common.QName;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * 
@@ -688,6 +693,8 @@ import org.opendaylight.yangtools.yang.common.QName;
  * <i>etsi-nfv-descriptors/nsd</i>
  *
  */
+@JsonDeserialize(as = NsdImpl.class)
+@JsonIgnoreProperties(value= {"df","virtualStorageDesc","extCpd","securityGroupRule","indicator","swImageDesc"}, ignoreUnknown = true)
 public interface Nsd
     extends
     DataObject,

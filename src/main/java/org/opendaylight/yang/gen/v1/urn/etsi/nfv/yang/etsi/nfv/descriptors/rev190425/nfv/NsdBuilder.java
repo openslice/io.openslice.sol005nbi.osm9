@@ -1,5 +1,6 @@
 package org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.nfv;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;
 import java.lang.Class;
 import java.lang.Deprecated;
@@ -491,7 +492,7 @@ public class NsdBuilder implements Builder<Nsd> {
         return new NsdImpl(this);
     }
 
-    private static final class NsdImpl
+    public static final class NsdImpl
         extends AbstractAugmentable<Nsd>
         implements Nsd {
     
@@ -500,9 +501,11 @@ public class NsdBuilder implements Builder<Nsd> {
         private final String _certificate;
         private final String _designer;
         private final Map<DfKey, Df> _df;
+        @JsonProperty("_id")
         private final String _id;
         private final String _invariantId;
         private final Map<LifecycleManagementScriptKey, LifecycleManagementScript> _lifecycleManagementScript;
+        @JsonProperty("name")
         private final String _name;
         private final List<String> _nestedNsdId;
         private final List<String> _pnfdId;
@@ -539,7 +542,11 @@ public class NsdBuilder implements Builder<Nsd> {
             this._vnfdId = base.getVnfdId();
             this._vnffgd = CodeHelpers.emptyToNull(base.getVnffgd());
         }
-    
+
+        public NsdImpl(){
+        	this( new NsdBuilder() );
+        }   
+        
         @Override
         public NsdKey key() {
             return key;

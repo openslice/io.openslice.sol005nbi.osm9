@@ -52,21 +52,20 @@ public class OSM9NBIClientT {
 				System.out.println("=== LIST VNFDs POJO object id: " + tmp_vnfd.getId() + ", Name: " + tmp_vnfd.getProductName());			
 			}
 		}
-	    System.out.println("************************");
-	    System.out.println("Getting NSDescriptors");
-	    System.out.println("************************");
-	    OSM9Client.getNSDescriptors();		
-	    System.out.println("************************");
-	    System.out.println("Getting NSDs");
-	    System.out.println("************************");
-		Nsd[] nsds = OSM9Client.getNSDs();
-		for (Nsd v : nsds) {
-			System.out.println("=== LIST NSDs POJO object response: " + v.toString());
-			System.out.println("=== LIST NSDs POJO object id: " + v.getId() + ", Name: " + v.getName());			
-			Nsd tmp_nsd = OSM9Client.getNSDbyID(v.getId());
-			System.out.println("=== LIST NSDs POJO object id: " + tmp_nsd.getId() + ", Name: " + tmp_nsd.getName());			
-		}
-	}
+//	    System.out.println("************************");
+//	    System.out.println("Getting NSDescriptors");
+//	    System.out.println("************************");
+//	    OSM9Client.getNSDescriptors();		
+//	    System.out.println("************************");
+//	    System.out.println("Getting NSDs");
+//	    System.out.println("************************");
+//		Nsd[] nsds = OSM9Client.getNSDs();
+//		for (Nsd v : nsds) {
+//			System.out.println("=== LIST NSDs POJO object response: " + v.toString());
+//			System.out.println("=== LIST NSDs POJO object id: " + v.getId() + ", Name: " + v.getName());			
+//			Nsd tmp_nsd = OSM9Client.getNSDbyID(v.getId());
+//			System.out.println("=== LIST NSDs POJO object id: " + tmp_nsd.getId() + ", Name: " + tmp_nsd.getName());			
+//		}
 //		System.out.println("Working Directory = " +System.getProperty("user.dir"));
 //		
 //		//Create VNFD
@@ -105,6 +104,8 @@ public class OSM9NBIClientT {
 //				e.printStackTrace();
 //			}
 //		}
+		
+		
 ////	    System.out.println("************************");
 ////	    System.out.println("Uploading VNF Zip from local file");
 ////	    System.out.println("************************");
@@ -118,7 +119,7 @@ public class OSM9NBIClientT {
 ////			System.out.println(e.getMessage());
 ////			return;
 ////		}
-//
+
 //	    System.out.println("Uploading NSD Package from URL");
 //	    System.out.println("************************");
 //	    String nsd_package_path = "http://localhost/osm/hackfest_multivdu_ns.tar.gz";
@@ -153,7 +154,6 @@ public class OSM9NBIClientT {
 //				e.printStackTrace();
 //			}
 //		}
-//	}
 //		
 //		//Create NSD
 //	    System.out.println("************************");
@@ -169,23 +169,24 @@ public class OSM9NBIClientT {
 //	    System.out.println("************************");
 //		String nsd_zip_path = "C:/EP/OSMDEVOPS/OSMvFIVE_NSDs/cirros_2vnf_ns_b.tar.gz";
 //		OSM8Client.uploadNSDZip(nsd_id, nsd_zip_path);		
-
-		//Create NS Instance
+//
+//		//Create NS Instance
 //	    System.out.println("************************");
 //	    System.out.println("Creating NS Instance");
 //	    System.out.println("************************");
-//		String vim_id="8e0929c5-4cc2-4a78-887f-d3642336e18c";
-//		String ns_instance_id = OSM8Client.createNSInstance(vim_id, nsd_id);
+//		String vim_id="033797cd-cc1e-4727-b9a6-9f7024c92c6e";
+//		String ns_instance_id = OSM9Client.createNSInstance("test",vim_id, nsd_id);
 //		if(ns_instance_id!=null)
 //		{
-//			OSM8Client.InstantiateNSInstance(ns_instance_id);
+//			OSM9Client.InstantiateNSInstance(ns_instance_id);
 //		}
 //		pressAnyKeyToContinue();
 //		if(ns_instance_id!=null)
 //		{
-//			OSM8Client.deleteNSInstance(ns_instance_id);
+//			OSM9Client.deleteNSInstance(ns_instance_id);
 //		}
 	    	    
+	}
 //		@Nullable Map<ConstituentVnfdKey, ConstituentVnfd> constituentVnfds = OSM9Client.getNSDbyID(nsd_id).getConstituentVnfd();
 //		NSCreateInstanceRequestPayload nscreateinstancerequestpayload = new NSCreateInstanceRequestPayload();
 //		nscreateinstancerequestpayload.setNsName("test");

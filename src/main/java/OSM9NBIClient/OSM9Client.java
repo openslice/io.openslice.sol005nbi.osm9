@@ -57,13 +57,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 //import org.opendaylight.yang.gen.v1.urn.etsi.osm.yang.project.nsd.rev170228.project.nsd.catalog.Nsd;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.Nsd;
-//import org.opendaylight.yang.gen.v1.urn.etsi.osm.yang.project.nsd.rev170228.project.nsd.catalog.NsdBuilder;
-import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.nsd.rev190425.nsd.NsdBuilder;
 //import org.opendaylight.yang.gen.v1.urn.etsi.osm.yang.project.vnfd.rev170228.project.vnfd.catalog.Vnfd;
 //import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.Vnfd;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.nfv.Vnfd;
-//import org.opendaylight.yang.gen.v1.urn.etsi.osm.yang.vnfr.rev170228.project.vnfr.catalog.vnfr.VnfdBuilder;
-import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.nfv.VnfdBuilder;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -224,8 +220,6 @@ public class OSM9Client implements OSMClient{
 		
 		try {
 			Vnfd[] vnfd_array = (Vnfd[]) mapper.readValue(new YAMLFactory().createParser(response.getBody()), Vnfd[].class);
-			//mapper.configure(MapperFeature.USE_GETTERS_AS_SETTERS, false);
-			//mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);			
 			return vnfd_array;
 		} catch (IllegalStateException | IOException e) {
 			System.out.println(response.getBody());
@@ -816,7 +810,7 @@ public class OSM9Client implements OSMClient{
 		ResponseEntity<String> response = this.getOSMResponse("/osm/nsd/v1/ns_descriptors/"+aNSDid);
 		ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
 		try {
-			Nsd nsd = (Nsd) mapper.readValue(new YAMLFactory().createParser(response.getBody()), NsdBuilder.class);
+			Nsd nsd = (Nsd) mapper.readValue(new YAMLFactory().createParser(response.getBody()), Nsd.class);
 			System.out.println(nsd.toString());
 			return nsd;
 		} catch (IllegalStateException | IOException e) {
