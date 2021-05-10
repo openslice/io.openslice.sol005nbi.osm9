@@ -245,7 +245,7 @@ public class OSM9Client implements OSMClient{
 		ResponseEntity<String> response = this.getOSMResponse("/osm/nsd/v1/ns_descriptors");
 		ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
 		try {
-			Nsd[] nsd_array = (Nsd[]) mapper.readValue(new YAMLFactory().createParser(response.getBody()), NsdBuilder[].class);
+			Nsd[] nsd_array = (Nsd[]) mapper.readValue(new YAMLFactory().createParser(response.getBody()), Nsd[].class);
 			return nsd_array;
 
 		} catch (IllegalStateException | IOException e) {
@@ -801,7 +801,7 @@ public class OSM9Client implements OSMClient{
 		ResponseEntity<String> response = this.getOSMResponse("/osm/vnfpkgm/v1/vnf_packages/"+aVNFDid);
 		ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
 		try {
-			Vnfd vnfd = (Vnfd) mapper.readValue(new YAMLFactory().createParser(response.getBody()), VnfdBuilder.class);
+			Vnfd vnfd = (Vnfd) mapper.readValue(new YAMLFactory().createParser(response.getBody()), Vnfd.class);
 			return vnfd;
 		} catch (IllegalStateException | IOException e) {
 //			logger.error(e.getMessage() );
