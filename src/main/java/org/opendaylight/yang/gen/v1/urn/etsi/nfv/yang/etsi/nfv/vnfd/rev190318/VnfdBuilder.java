@@ -1,4 +1,5 @@
 package org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.vnfd.rev190318;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.base.MoreObjects;
 import java.lang.Class;
 import java.lang.Deprecated;
@@ -357,6 +358,7 @@ public class VnfdBuilder implements Builder<Vnfd> {
       * @deprecated Use {#link #setDf(Map)} instead.
       */
     @Deprecated(forRemoval = true)
+    @JsonIgnore
     public VnfdBuilder setDf(final List<Df> values) {
         return setDf(CodeHelpers.compatMap(values));
     }
@@ -472,6 +474,7 @@ public class VnfdBuilder implements Builder<Vnfd> {
       * @deprecated Use {#link #setLifecycleManagementScript(Map)} instead.
       */
     @Deprecated(forRemoval = true)
+    @JsonIgnore
     public VnfdBuilder setLifecycleManagementScript(final List<LifecycleManagementScript> values) {
         return setLifecycleManagementScript(CodeHelpers.compatMap(values));
     }

@@ -1,4 +1,5 @@
 package org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.nsd;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.base.MoreObjects;
 import java.lang.Class;
 import java.lang.Deprecated;
@@ -214,6 +215,7 @@ public class VirtualLinkDescBuilder implements Builder<VirtualLinkDesc> {
       * @deprecated Use {#link #setDf(Map)} instead.
       */
     @Deprecated(forRemoval = true)
+    @JsonIgnore
     public VirtualLinkDescBuilder setDf(final List<Df> values) {
         return setDf(CodeHelpers.compatMap(values));
     }

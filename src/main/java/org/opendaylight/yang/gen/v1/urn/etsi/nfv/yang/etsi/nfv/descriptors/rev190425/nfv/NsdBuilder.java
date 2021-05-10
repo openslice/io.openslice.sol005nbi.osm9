@@ -1,4 +1,5 @@
 package org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.nfv;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.base.MoreObjects;
 import java.lang.Class;
 import java.lang.Deprecated;
@@ -304,6 +305,7 @@ public class NsdBuilder implements Builder<Nsd> {
       * @deprecated Use {#link #setDf(Map)} instead.
       */
     @Deprecated(forRemoval = true)
+    @JsonIgnore
     public NsdBuilder setDf(final List<Df> values) {
         return setDf(CodeHelpers.compatMap(values));
     }
@@ -336,6 +338,7 @@ public class NsdBuilder implements Builder<Nsd> {
       * @deprecated Use {#link #setLifecycleManagementScript(Map)} instead.
       */
     @Deprecated(forRemoval = true)
+    @JsonIgnore
     public NsdBuilder setLifecycleManagementScript(final List<LifecycleManagementScript> values) {
         return setLifecycleManagementScript(CodeHelpers.compatMap(values));
     }

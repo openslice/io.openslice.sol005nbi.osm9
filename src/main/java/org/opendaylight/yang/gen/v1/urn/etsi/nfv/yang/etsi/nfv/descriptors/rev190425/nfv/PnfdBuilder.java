@@ -1,4 +1,5 @@
 package org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.nfv;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.base.MoreObjects;
 import java.lang.Class;
 import java.lang.Deprecated;
@@ -222,6 +223,7 @@ public class PnfdBuilder implements Builder<Pnfd> {
       * @deprecated Use {#link #setExtCpd(Map)} instead.
       */
     @Deprecated(forRemoval = true)
+    @JsonIgnore
     public PnfdBuilder setExtCpd(final List<ExtCpd> values) {
         return setExtCpd(CodeHelpers.compatMap(values));
     }
@@ -296,6 +298,7 @@ public class PnfdBuilder implements Builder<Pnfd> {
       * @deprecated Use {#link #setSecurityGroupRule(Map)} instead.
       */
     @Deprecated(forRemoval = true)
+    @JsonIgnore
     public PnfdBuilder setSecurityGroupRule(final List<SecurityGroupRule> values) {
         return setSecurityGroupRule(CodeHelpers.compatMap(values));
     }

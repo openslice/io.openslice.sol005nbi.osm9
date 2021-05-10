@@ -1,4 +1,5 @@
 package org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.nfv;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 import com.google.common.base.MoreObjects;
@@ -369,6 +370,7 @@ public class VnfdBuilder implements Builder<Vnfd> {
       * @deprecated Use {#link #setDf(Map)} instead.
       */
     @Deprecated(forRemoval = true)
+    @JsonIgnore
     public VnfdBuilder setDf(final List<Df> values) {
         return setDf(CodeHelpers.compatMap(values));
     }
@@ -391,6 +393,7 @@ public class VnfdBuilder implements Builder<Vnfd> {
       * @deprecated Use {#link #setElementGroup(Map)} instead.
       */
     @Deprecated(forRemoval = true)
+    @JsonIgnore
     public VnfdBuilder setElementGroup(final List<ElementGroup> values) {
         return setElementGroup(CodeHelpers.compatMap(values));
     }
@@ -413,14 +416,11 @@ public class VnfdBuilder implements Builder<Vnfd> {
       * @deprecated Use {#link #setExtCpd(Map)} instead.
       */
     @Deprecated(forRemoval = true)
+    @JsonIgnore
     public VnfdBuilder setExtCpd(final List<ExtCpd> values) {
         return setExtCpd(CodeHelpers.compatMap(values));
     }
     
-    public VnfdBuilder setId(final String value) {
-        this._id = value;
-        return this;
-    }
     public VnfdBuilder setIndicator(final Map<IndicatorKey, Indicator> values) {
         this._indicator = values;
         return this;
@@ -440,6 +440,7 @@ public class VnfdBuilder implements Builder<Vnfd> {
       * @deprecated Use {#link #setIndicator(Map)} instead.
       */
     @Deprecated(forRemoval = true)
+    @JsonIgnore
     public VnfdBuilder setIndicator(final List<Indicator> values) {
         return setIndicator(CodeHelpers.compatMap(values));
     }
@@ -462,6 +463,7 @@ public class VnfdBuilder implements Builder<Vnfd> {
       * @deprecated Use {#link #setIntVirtualLinkDesc(Map)} instead.
       */
     @Deprecated(forRemoval = true)
+    @JsonIgnore
     public VnfdBuilder setIntVirtualLinkDesc(final List<IntVirtualLinkDesc> values) {
         return setIntVirtualLinkDesc(CodeHelpers.compatMap(values));
     }
@@ -484,6 +486,7 @@ public class VnfdBuilder implements Builder<Vnfd> {
       * @deprecated Use {#link #setLifecycleManagementScript(Map)} instead.
       */
     @Deprecated(forRemoval = true)
+    @JsonIgnore
     public VnfdBuilder setLifecycleManagementScript(final List<LifecycleManagementScript> values) {
         return setLifecycleManagementScript(CodeHelpers.compatMap(values));
     }
@@ -536,6 +539,7 @@ public class VnfdBuilder implements Builder<Vnfd> {
       * @deprecated Use {#link #setSecurityGroupRule(Map)} instead.
       */
     @Deprecated(forRemoval = true)
+    @JsonIgnore
     public VnfdBuilder setSecurityGroupRule(final List<SecurityGroupRule> values) {
         return setSecurityGroupRule(CodeHelpers.compatMap(values));
     }
@@ -563,6 +567,7 @@ public class VnfdBuilder implements Builder<Vnfd> {
       * @deprecated Use {#link #setSwImageDesc(Map)} instead.
       */
     @Deprecated(forRemoval = true)
+    @JsonIgnore
     public VnfdBuilder setSwImageDesc(final List<SwImageDesc> values) {
         return setSwImageDesc(CodeHelpers.compatMap(values));
     }
@@ -614,6 +619,7 @@ public class VnfdBuilder implements Builder<Vnfd> {
       * @deprecated Use {#link #setVirtualComputeDesc(Map)} instead.
       */
     @Deprecated(forRemoval = true)
+    @JsonIgnore
     public VnfdBuilder setVirtualComputeDesc(final List<VirtualComputeDesc> values) {
         return setVirtualComputeDesc(CodeHelpers.compatMap(values));
     }
@@ -636,6 +642,7 @@ public class VnfdBuilder implements Builder<Vnfd> {
       * @deprecated Use {#link #setVirtualStorageDesc(Map)} instead.
       */
     @Deprecated(forRemoval = true)
+    @JsonIgnore
     public VnfdBuilder setVirtualStorageDesc(final List<VirtualStorageDesc> values) {
         return setVirtualStorageDesc(CodeHelpers.compatMap(values));
     }
@@ -707,7 +714,7 @@ public class VnfdBuilder implements Builder<Vnfd> {
         private final Map<DfKey, Df> _df;
         private final Map<ElementGroupKey, ElementGroup> _elementGroup;
         private final Map<ExtCpdKey, ExtCpd> _extCpd;
-        @JsonProperty("id")
+        @JsonProperty("_id")
         private final String _id;
         private final Map<IndicatorKey, Indicator> _indicator;
         private final Map<IntVirtualLinkDescKey, IntVirtualLinkDesc> _intVirtualLinkDesc;

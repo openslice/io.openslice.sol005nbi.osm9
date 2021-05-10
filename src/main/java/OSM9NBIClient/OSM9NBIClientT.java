@@ -48,8 +48,8 @@ public class OSM9NBIClientT {
 			for (Vnfd v : vnfds) {
 				System.out.println("=== LIST VNFDs POJO object response: " + v.toString());			
 				System.out.println("=== LIST VNFDs POJO object id: " + v.getId() + ", Name: " + v.getProductName());
-				Vnfd tmp_vnfd = OSM9Client.getVNFDbyID(v.getId());
-				System.out.println("=== LIST VNFDs POJO object id: " + tmp_vnfd.getId() + ", Name: " + tmp_vnfd.getProductName());			
+				Vnfd tmp_vnfd = OSM9Client.getVNFDbyID("c58b5846-6495-42ce-8dd6-35df924b54fb");
+				//System.out.println("=== LIST VNFDs POJO object id: " + tmp_vnfd.getId() + ", Name: " + tmp_vnfd.getProductName());			
 			}
 		}
 	}

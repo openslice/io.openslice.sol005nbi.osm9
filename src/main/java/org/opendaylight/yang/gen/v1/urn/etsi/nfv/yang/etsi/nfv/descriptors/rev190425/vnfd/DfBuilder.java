@@ -246,6 +246,7 @@ public class DfBuilder implements Builder<Df> {
       * @deprecated Use {#link #setIndicator(Map)} instead.
       */
     @Deprecated(forRemoval = true)
+    @JsonIgnore
     public DfBuilder setIndicator(final List<Indicator> values) {
         return setIndicator(CodeHelpers.compatMap(values));
     }
