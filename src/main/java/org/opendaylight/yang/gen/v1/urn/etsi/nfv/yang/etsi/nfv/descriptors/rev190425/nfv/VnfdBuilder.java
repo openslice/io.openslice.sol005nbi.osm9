@@ -711,7 +711,7 @@ public class VnfdBuilder implements Builder<Vnfd> {
         private final List<String> _autoScale;
         private final ConfigurableProperties _configurableProperties;
         private final String _defaultLocalizationLanguage;
-        private final Map<DfKey, Df> _df;
+        private Map<DfKey, Df> _df;
         private final Map<ElementGroupKey, ElementGroup> _elementGroup;
         private final Map<ExtCpdKey, ExtCpd> _extCpd;
         @JsonProperty("_id")
@@ -791,6 +791,10 @@ public class VnfdBuilder implements Builder<Vnfd> {
         @Override
         public String getDefaultLocalizationLanguage() {
             return _defaultLocalizationLanguage;
+        }
+
+        public Map<DfKey, Df> setDf(final List<Df> values) {
+            return _df = CodeHelpers.compatMap(values) ;
         }
         
         @Override

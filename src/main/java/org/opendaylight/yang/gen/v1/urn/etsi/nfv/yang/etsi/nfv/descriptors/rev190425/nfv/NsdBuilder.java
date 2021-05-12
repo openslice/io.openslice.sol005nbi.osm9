@@ -500,7 +500,7 @@ public class NsdBuilder implements Builder<Nsd> {
         private final List<String> _autoscaleRule;
         private final String _certificate;
         private final String _designer;
-        private final Map<DfKey, Df> _df;
+        private Map<DfKey, Df> _df;
         @JsonProperty("_id")
         private final String _id;
         private final String _invariantId;
@@ -572,6 +572,12 @@ public class NsdBuilder implements Builder<Nsd> {
             return _designer;
         }
         
+
+
+        public Map<DfKey, Df> setDf(final List<Df> values) {
+            return _df = CodeHelpers.compatMap(values) ;
+        }
+
         @Override
         public Map<DfKey, Df> getDf() {
             return _df;

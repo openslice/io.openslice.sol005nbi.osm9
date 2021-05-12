@@ -52,21 +52,21 @@ public class OSM9NBIClientT {
 				System.out.println("=== LIST VNFDs POJO object id: " + tmp_vnfd.getId() + ", Name: " + tmp_vnfd.getProductName());			
 			}
 		}
-//	    System.out.println("************************");
-//	    System.out.println("Getting NSDescriptors");
-//	    System.out.println("************************");
-//	    OSM9Client.getNSDescriptors();		
-//	    System.out.println("************************");
-//	    System.out.println("Getting NSDs");
-//	    System.out.println("************************");
-//		Nsd[] nsds = OSM9Client.getNSDs();
-//		for (Nsd v : nsds) {
-//			System.out.println("=== LIST NSDs POJO object response: " + v.toString());
-//			System.out.println("=== LIST NSDs POJO object id: " + v.getId() + ", Name: " + v.getName());			
-//			Nsd tmp_nsd = OSM9Client.getNSDbyID(v.getId());
-//			System.out.println("=== LIST NSDs POJO object id: " + tmp_nsd.getId() + ", Name: " + tmp_nsd.getName());			
-//		}
-//		System.out.println("Working Directory = " +System.getProperty("user.dir"));
+	    System.out.println("************************");
+	    System.out.println("Getting NSDescriptors");
+	    System.out.println("************************");
+	    OSM9Client.getNSDescriptors();		
+	    System.out.println("************************");
+	    System.out.println("Getting NSDs");
+	    System.out.println("************************");
+		Nsd[] nsds = OSM9Client.getNSDs();
+		for (Nsd v : nsds) {
+			System.out.println("=== LIST NSDs POJO object response: " + v.toString());
+			System.out.println("=== LIST NSDs POJO object id: " + v.getId() + ", Name: " + v.getName());			
+			Nsd tmp_nsd = OSM9Client.getNSDbyID(v.getId());
+			System.out.println("=== LIST NSDs POJO object id: " + tmp_nsd.getId() + ", Name: " + tmp_nsd.getName());			
+		}
+		System.out.println("Working Directory = " +System.getProperty("user.dir"));
 //		
 //		//Create VNFD
 //	    System.out.println("************************");
