@@ -1,6 +1,6 @@
 /*-
  * ========================LICENSE_START=================================
- * io.openslice.sol005nbi.osm8
+ * io.openslice.sol005nbi.osm9
  * %%
  * Copyright (C) 2019 openslice.io
  * %%
@@ -101,7 +101,7 @@ public class OSM9Client implements OSMClient{
 		this.setMANOUsername(username);
 		this.setMANOProjectId(project_id);
 		this.setMANOApiEndpoint(apiEndpoint);
-		OSM8ClientInit();
+		OSM9ClientInit();
 	}
 	
 	public void closeConn()
@@ -120,7 +120,7 @@ public class OSM9Client implements OSMClient{
 		}
 	}
 	
-	private void OSM8ClientInit() throws HttpStatusCodeException
+	private void OSM9ClientInit() throws HttpStatusCodeException
 	{
 		this.authenticateMANO();
 
@@ -893,15 +893,7 @@ public class OSM9Client implements OSMClient{
 	}
 	
 	public void authenticateMANO() throws HttpStatusCodeException
-    {
-//		if(OSM8Client.getManoAuthorizationTokenTimeout()>Instant.now().getEpochSecond()+120)
-//		{
-//	        System.out.println(OSM8Client.getManoAuthorizationTokenTimeout()+">"+Instant.now().getEpochSecond()+"+120");
-//	        this.setÃŽÅ“ÃŽâ€˜ÃŽï¿½ÃŽÅ¸AuthorizationBasicHeader(OSM8Client.getManoAuthorizationTokenID());	
-//	        System.out.println("Valid Key, skipping new authentication");
-//	        return;
-//		}
-			
+    {		
         // use the TrustSelfSignedStrategy to allow Self Signed Certificates
         SSLContext sslContext;
 		try {

@@ -1,6 +1,6 @@
 /*-
  * ========================LICENSE_START=================================
- * io.openslice.sol005nbi.osm8
+ * io.openslice.sol005nbi.osm9
  * %%
  * Copyright (C) 2019 openslice.io
  * %%
@@ -22,9 +22,11 @@ package OSM9Util.OSM9VNFReq;
 import java.util.Formatter;
 import java.util.Map;
 
-import org.opendaylight.yang.gen.v1.urn.etsi.osm.yang.vnfd.base.rev170228.vnfd.descriptor.Vdu;
-import org.opendaylight.yang.gen.v1.urn.etsi.osm.yang.vnfd.base.rev170228.vnfd.descriptor.VduKey;
-import org.opendaylight.yang.gen.v1.urn.etsi.osm.yang.vnfd.rev170228.vnfd.catalog.Vnfd;
+import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.Vnfd;
+import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.vnfd.VirtualComputeDesc;
+import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.vnfd.VirtualComputeDescKey;
+import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.vnfd.VirtualStorageDesc;
+import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.vnfd.VirtualStorageDescKey;
 
 public class OSM9VNFRequirements {
     public Vnfd descriptor;
@@ -38,37 +40,58 @@ public class OSM9VNFRequirements {
     public OSM9VNFRequirements()
     {}
     
-    public OSM9VNFRequirements(Vnfd descriptor) {
-        this.descriptor = descriptor;
-
-        this.memoryMB = 0;
-        this.storageGB = 0;
-        this.vcpuCount = 0;
-        this.vmCount = 0;
-        Map<VduKey,Vdu> vduMap = descriptor.getVdu();
-        for(Vdu vdu : vduMap.values() ) {   
-
-    		int cnt =1;
-        	if ( vdu.getCount() != null ) {
-        		cnt = vdu.getCount().intValue(); 
-        	}
-        	
-        	if (  vdu.getVmFlavor() != null ) {
-                this.memoryMB +=  cnt  * vdu.getVmFlavor().getMemoryMb().intValue();
-                this.storageGB += cnt * vdu.getVmFlavor().getStorageGb().intValue();
-                this.vcpuCount += cnt * 1;//vdu.getVmFlavor().getVcpuCount().intValue();
-                this.vmCount += cnt;
-        	}
-        }
-    }
+//    public OSM9VNFRequirements(Vnfd descriptor) {
+//        this.descriptor = descriptor;
+//
+//        this.memoryMB = 0;
+//        this.storageGB = 0;
+//        this.vcpuCount = 0;
+//        this.vmCount = 0;
+//        Map<VduKey,Vdu> vduMap = descriptor.getVdu();
+//        for(Vdu vdu : vduMap.values() ) {   
+//
+//    		int cnt =1;
+//        	if ( vdu.getCount() != null ) {
+//        		cnt = vdu.getCount().intValue(); 
+//        	}
+//        	
+//        	if (  vdu.getVmFlavor() != null ) {
+//                this.memoryMB +=  cnt  * vdu.getVmFlavor().getMemoryMb().intValue();
+//                this.storageGB += cnt * vdu.getVmFlavor().getStorageGb().intValue();
+//                this.vcpuCount += cnt * 1;//vdu.getVmFlavor().getVcpuCount().intValue();
+//                this.vmCount += cnt;
+//        	}
+//        }
+//    }
+    
+    public OSM9VNFRequirements(org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.Vnfd vnfHackfestMultiVduDescriptor) {
+		  this.descriptor = vnfHackfestMultiVduDescriptor;
+		
+		  this.memoryMB = 0;
+		  this.storageGB = 0;
+		  this.vcpuCount = 0;
+		  this.vmCount = 0;
+		  Map<VirtualComputeDescKey, VirtualComputeDesc> virtualComputeDescMap = vnfHackfestMultiVduDescriptor.getVirtualComputeDesc();
+		  for(VirtualComputeDesc tmp : virtualComputeDescMap.values())
+		  {
+			  this.memoryMB = tmp.getVirtualMemory().getSize().intValue();
+			  this.vcpuCount = tmp.getVirtualCpu().getNumVirtualCpu().intValue();
+			  this.vmCount++;
+		  }
+		  Map<VirtualStorageDescKey, VirtualStorageDesc> virtualStorageDescMap = vnfHackfestMultiVduDescriptor.getVirtualStorageDesc();
+		  for(VirtualStorageDesc tmp : virtualStorageDescMap.values())
+		  {
+			  this.storageGB = tmp.getSizeOfStorage().intValue();
+		  }	  
+	}
 
     public String toHTML() {
         StringBuilder stringBuilder = new StringBuilder();
         Formatter fmt = new Formatter(stringBuilder);
-        fmt.format("<h3>%s</h3><br>", descriptor.getName());
-        fmt.format("<b>%s: </b>%s<br>", "Vendor", descriptor.getVendor() );
+        fmt.format("<h3>%s</h3><br>", descriptor.getProductName());
+        fmt.format("<b>%s: </b>%s<br>", "Vendor", descriptor.getProvider() );
         fmt.format("<b>%s: </b>%s<br>", "Version", descriptor.getVersion() );
-        fmt.format("<b>%s: </b>%s<br>", "Description", descriptor.getDescription());
+        fmt.format("<b>%s: </b>%s<br>", "Description", descriptor.getProductInfoDescription());
         fmt.format("<b>%s: </b>%d<br>", "VM Count", vmCount);
         fmt.format("<b>%s: </b>%d<br>", "vCPU Count", vcpuCount);
         fmt.format("<b>%s: </b>%d MB<br>", "Memory", memoryMB);
@@ -80,7 +103,7 @@ public class OSM9VNFRequirements {
     @Override
     public String toString() {
         return "VNFRequirements{" +
-                "vnfName=" + descriptor.getName() +
+                "vnfName=" + descriptor.getProductName() +
                 ", memoryMB=" + memoryMB +
                 ", storageGB=" + storageGB +
                 ", vcpuCount=" + vcpuCount +

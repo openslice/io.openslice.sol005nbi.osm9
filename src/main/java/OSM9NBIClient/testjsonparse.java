@@ -1,4 +1,4 @@
-//package OSM8NBIClient;
+//package OSM9NBIClient;
 //
 //import org.json.JSONArray;
 //import org.json.JSONException;

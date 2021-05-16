@@ -1,12 +1,16 @@
 package org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.vnfd;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.KeyDeserializer;
 import com.google.common.base.MoreObjects;
+
+import java.io.IOException;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Objects;
 import org.opendaylight.yangtools.yang.binding.CodeHelpers;
 import org.opendaylight.yangtools.yang.binding.Identifier;
 
-public class VirtualComputeDescKey
+public class VirtualComputeDescKey extends KeyDeserializer
  implements Identifier<VirtualComputeDesc> {
     private static final long serialVersionUID = -1836114838188485829L;
     private final String _id;
@@ -58,5 +62,12 @@ public class VirtualComputeDescKey
         CodeHelpers.appendValue(helper, "_id", _id);
         return helper.toString();
     }
+    
+	@Override
+	public Object deserializeKey(String key, DeserializationContext ctxt) throws IOException {
+		// TODO Auto-generated method stub
+		return this.toString();
+	}
+    
 }
 

@@ -351,6 +351,7 @@ public class VduBuilder implements Builder<Vdu> {
         @JsonProperty("name")         
         private final String _name;
         private final List<String> _nfviConstraint;
+        @JsonProperty("sw-image-desc")         
         private final String _swImageDesc;
         private final String _virtualComputeDesc;
         private final List<String> _virtualStorageDesc;

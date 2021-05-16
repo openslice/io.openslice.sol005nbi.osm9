@@ -28,7 +28,6 @@ import OSM9NBIClient.NSInstantiateInstanceRequestPayload.Vdu;
 public class OSM9NBIClientT {
 	
 	public static void main(String args[]) {
-	    //OSM8Client OSM8Client = new OSM8Client("https://192.168.199.115:9999","admin","admin","admin");
 	    OSM9Client OSM9Client = new OSM9Client("https://10.10.10.41:9999","admin","admin","admin");
 	    
 	    System.out.println("************************");
@@ -112,7 +111,7 @@ public class OSM9NBIClientT {
 ////		String vnfd_zip_path = "./src/main/resources/temp/cirros_vnf.tar.gz";
 ////		try 
 ////		{
-////			OSM8Client.uploadVNFDZip(vnfd_id, vnfd_zip_path);
+////			OSM9Client.uploadVNFDZip(vnfd_id, vnfd_zip_path);
 ////		}
 ////		catch(IOException e)
 ////		{
@@ -162,13 +161,13 @@ public class OSM9NBIClientT {
 //	    System.out.println("************************");
 //	    System.out.println("Creating NSD Instance");
 //	    System.out.println("************************");
-//		String nsd_id = OSM8Client.createNSDPackage();
+//		String nsd_id = OSM9Client.createNSDPackage();
 //		// TODO Handle failure acquiring a vnfd_id
 //	    System.out.println("************************");
 //	    System.out.println("Uploading NSD Zip");
 //	    System.out.println("************************");
 //		String nsd_zip_path = "C:/EP/OSMDEVOPS/OSMvFIVE_NSDs/cirros_2vnf_ns_b.tar.gz";
-//		OSM8Client.uploadNSDZip(nsd_id, nsd_zip_path);		
+//		OSM9Client.uploadNSDZip(nsd_id, nsd_zip_path);		
 //
 //		//Create NS Instance
 //	    System.out.println("************************");
@@ -259,7 +258,7 @@ public class OSM9NBIClientT {
 //		//String	test_payload="{\"nsName\":\"test\",\"vimAccountId\":\"4efd8bf4-5292-4634-87b7-7b3d49108b36\",\"nsdId\":\""+nsd_id+"\",\"vnf\":[{\"member-vnf-index\":\"1\",\"vimAccountId\":\"4efd8bf4-5292-4634-87b7-7b3d49108b36\", \"vdu\":[ {\"id\": \"mgmtVM\", \"interface\": [{\"name\": \"mgmtVM-eth0\", \"floating-ip-required\": true }]} ]},{\"member-vnf-index\":\"2\",\"vimAccountId\":\"4efd8bf4-5292-4634-87b7-7b3d49108b36\"}],\"vld\": [ {\"name\": \"mgmtnet\", \"vim-network-name\": \"OSMFIVE_selfservice01\"}]}";			
 //		//String	test_payload="{\"nsName\":\"test\",\"vimAccountId\":\"4efd8bf4-5292-4634-87b7-7b3d49108b36\",\"nsdId\":\""+nsd_id+"\",\"vnf\":[{\"member-vnf-index\":\"1\",\"vimAccountId\":\"4efd8bf4-5292-4634-87b7-7b3d49108b36\"},{\"member-vnf-index\":\"2\",\"vimAccountId\":\"4efd8bf4-5292-4634-87b7-7b3d49108b36\"}],\"vld\": [ {\"name\": \"mgmtnet\", \"vim-network-name\": \"OSMFIVE_selfservice01\"}]}";	
 //		//System.out.println("NS Instance creation payload : " + test_payload);
-//		//ResponseEntity<String> ns_instance_creation_entity = OSM8Client.createNSInstance(test_payload);
+//		//ResponseEntity<String> ns_instance_creation_entity = OSM9Client.createNSInstance(test_payload);
 //		// The NS Instance ID is set
 //
 //		// NS instance creation
@@ -339,7 +338,7 @@ public class OSM9NBIClientT {
 //			//String test_payload={"nsName":"test","vimAccountId":"4efd8bf4-5292-4634-87b7-7b3d49108b36","nsdId":"acc18b58-1b82-40e8-8c35-2bfcc8293cdf","vnf":[{"member-vnf-index":"1","vimAccountId":"4efd8bf4-5292-4634-87b7-7b3d49108b36", vdu:[ {id: mgmtVM, interface: [{name: "mgmtVM-eth0", floating-ip-required: true }]} ], vld: [ {name: mgmtnet, vim-network-name: "OSMFIVE_selfservice01"} ]},{"member-vnf-index":"2","vimAccountId":"4efd8bf4-5292-4634-87b7-7b3d49108b36"}]};
 //			//String test_payload="{\"nsName\":\"test\",\"vimAccountId\":\"4efd8bf4-5292-4634-87b7-7b3d49108b36\",\"nsdId\":\"acc18b58-1b82-40e8-8c35-2bfcc8293cdf\",\"vnf\":[{\"member-vnf-index\":\"1\",\"vimAccountId\":\"4efd8bf4-5292-4634-87b7-7b3d49108b36\", vdu:[ {id: mgmtVM, interface: [{name: \"mgmtVM-eth0\", floating-ip-required: true }]} ], vld: [ {name: mgmtnet, vim-network-name: \"OSMFIVE_selfservice01\"} ]},{\"member-vnf-index\":\"2\",\"vimAccountId\":\"4efd8bf4-5292-4634-87b7-7b3d49108b36\"}]}";
 //			//String test_payload="{\"nsName\":\"test\",\"vimAccountId\":\"4efd8bf4-5292-4634-87b7-7b3d49108b36\",\"nsdId\":\""+nsd_id+"\"}";
-//			//ResponseEntity<String> instantiate_ns_instance_entity = OSM8Client.instantiateNSInstance(nsd_instance_id, test_payload);
+//			//ResponseEntity<String> instantiate_ns_instance_entity = OSM9Client.instantiateNSInstance(nsd_instance_id, test_payload);
 //			// Here we need the feedback
 //			ResponseEntity<String> instantiate_ns_instance_entity = OSM9Client.instantiateNSInstance(nsd_instance_id, nsrequestpayload.toJSON());
 //			if (instantiate_ns_instance_entity == null || instantiate_ns_instance_entity.getStatusCode().is4xxClientError() || instantiate_ns_instance_entity.getStatusCode().is5xxServerError()) {
@@ -355,7 +354,7 @@ public class OSM9NBIClientT {
 //		
 //		
 //	}
-////	public OSM8Client() {	
+////	public OSM9Client() {	
 ////		// Properties file path.
 ////		String filePath = "osm4.properties.xml";
 ////		Properties prop = new Properties();
@@ -374,7 +373,7 @@ public class OSM9NBIClientT {
 ////			ex.printStackTrace();
 ////		} 		
 ////		
-////		OSM8ClientInit();
+////		OSM9ClientInit();
 ////	}
 //	
 }

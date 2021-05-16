@@ -1,4 +1,5 @@
 package org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.vnfd;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;
 import java.lang.Class;
 import java.lang.Deprecated;
@@ -251,17 +252,20 @@ public class VirtualComputeDescBuilder implements Builder<VirtualComputeDesc> {
         return new VirtualComputeDescImpl(this);
     }
 
-    private static final class VirtualComputeDescImpl
+    public static final class VirtualComputeDescImpl
         extends AbstractAugmentable<VirtualComputeDesc>
         implements VirtualComputeDesc {
     
         private final String _computeRequirements;
+        @JsonProperty("id")
         private final String _id;
         private final Map<LogicalNodeKey, LogicalNode> _logicalNode;
         private final Map<RequestAdditionalCapabilityKey, RequestAdditionalCapability> _requestAdditionalCapability;
+        @JsonProperty("virtual-cpu")
         private final VirtualCpu _virtualCpu;
+        @JsonProperty("virtual-memory")
         private final VirtualMemory _virtualMemory;
-        private final VirtualComputeDescKey key;
+        private VirtualComputeDescKey key;
     
         VirtualComputeDescImpl(VirtualComputeDescBuilder base) {
             super(base.augmentation);
@@ -278,8 +282,16 @@ public class VirtualComputeDescBuilder implements Builder<VirtualComputeDesc> {
             this._virtualMemory = base.getVirtualMemory();
         }
     
+        
+        public VirtualComputeDescImpl() {
+        	this( new VirtualComputeDescBuilder());
+        }
+                
         @Override
-        public VirtualComputeDescKey key() {
+        public VirtualComputeDescKey key() {        	
+        	if ( ( key != null) && ( key.getId() == null) && ( _id != null) ) {
+        		key = new VirtualComputeDescKey(_id);        		
+        	}        	
             return key;
         }
         

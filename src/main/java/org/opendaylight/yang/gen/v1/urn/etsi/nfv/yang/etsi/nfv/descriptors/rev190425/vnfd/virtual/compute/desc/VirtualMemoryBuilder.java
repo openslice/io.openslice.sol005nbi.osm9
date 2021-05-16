@@ -1,4 +1,5 @@
 package org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.vnfd.virtual.compute.desc;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.Range;
 import java.lang.Boolean;
@@ -222,13 +223,16 @@ public class VirtualMemoryBuilder implements Builder<VirtualMemory> {
         return new VirtualMemoryImpl(this);
     }
 
-    private static final class VirtualMemoryImpl
+    public static final class VirtualMemoryImpl
         extends AbstractAugmentable<VirtualMemory>
         implements VirtualMemory {
     
+    	@JsonProperty("over-subscription-policy")
         private final String _overSubscriptionPolicy;
+        @JsonProperty("size")
         private final BigDecimal _size;
         private final Map<VduMemRequirementsKey, VduMemRequirements> _vduMemRequirements;
+        @JsonProperty("numa-enabled")
         private final Boolean _numaEnabled;
     
         VirtualMemoryImpl(VirtualMemoryBuilder base) {
@@ -239,6 +243,10 @@ public class VirtualMemoryBuilder implements Builder<VirtualMemory> {
             this._numaEnabled = base.isNumaEnabled();
         }
     
+        public VirtualMemoryImpl() {
+        	this( new VirtualMemoryBuilder());
+        }                        
+        
         @Override
         public String getOverSubscriptionPolicy() {
             return _overSubscriptionPolicy;

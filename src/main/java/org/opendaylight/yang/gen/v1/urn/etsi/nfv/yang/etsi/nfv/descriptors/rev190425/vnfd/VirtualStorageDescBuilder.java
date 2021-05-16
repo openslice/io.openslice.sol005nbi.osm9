@@ -253,6 +253,7 @@ public class VirtualStorageDescBuilder implements Builder<VirtualStorageDesc> {
     
     	@JsonProperty("id")
         private final String _id;
+    	@JsonProperty("size-of-storage")
         private final Uint64 _sizeOfStorage;
         private final String _swImageDesc;
         private final Class<? extends StorageType> _typeOfStorage;

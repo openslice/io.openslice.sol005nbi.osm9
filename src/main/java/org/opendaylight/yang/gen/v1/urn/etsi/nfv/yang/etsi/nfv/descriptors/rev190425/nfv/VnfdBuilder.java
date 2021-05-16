@@ -1,7 +1,7 @@
 package org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.nfv;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects;
 import java.lang.Class;
 import java.lang.Deprecated;
@@ -370,7 +370,6 @@ public class VnfdBuilder implements Builder<Vnfd> {
       * @deprecated Use {#link #setDf(Map)} instead.
       */
     @Deprecated(forRemoval = true)
-    @JsonIgnore
     public VnfdBuilder setDf(final List<Df> values) {
         return setDf(CodeHelpers.compatMap(values));
     }
@@ -393,7 +392,6 @@ public class VnfdBuilder implements Builder<Vnfd> {
       * @deprecated Use {#link #setElementGroup(Map)} instead.
       */
     @Deprecated(forRemoval = true)
-    @JsonIgnore
     public VnfdBuilder setElementGroup(final List<ElementGroup> values) {
         return setElementGroup(CodeHelpers.compatMap(values));
     }
@@ -416,7 +414,6 @@ public class VnfdBuilder implements Builder<Vnfd> {
       * @deprecated Use {#link #setExtCpd(Map)} instead.
       */
     @Deprecated(forRemoval = true)
-    @JsonIgnore
     public VnfdBuilder setExtCpd(final List<ExtCpd> values) {
         return setExtCpd(CodeHelpers.compatMap(values));
     }
@@ -440,7 +437,6 @@ public class VnfdBuilder implements Builder<Vnfd> {
       * @deprecated Use {#link #setIndicator(Map)} instead.
       */
     @Deprecated(forRemoval = true)
-    @JsonIgnore
     public VnfdBuilder setIndicator(final List<Indicator> values) {
         return setIndicator(CodeHelpers.compatMap(values));
     }
@@ -463,7 +459,6 @@ public class VnfdBuilder implements Builder<Vnfd> {
       * @deprecated Use {#link #setIntVirtualLinkDesc(Map)} instead.
       */
     @Deprecated(forRemoval = true)
-    @JsonIgnore
     public VnfdBuilder setIntVirtualLinkDesc(final List<IntVirtualLinkDesc> values) {
         return setIntVirtualLinkDesc(CodeHelpers.compatMap(values));
     }
@@ -486,7 +481,6 @@ public class VnfdBuilder implements Builder<Vnfd> {
       * @deprecated Use {#link #setLifecycleManagementScript(Map)} instead.
       */
     @Deprecated(forRemoval = true)
-    @JsonIgnore
     public VnfdBuilder setLifecycleManagementScript(final List<LifecycleManagementScript> values) {
         return setLifecycleManagementScript(CodeHelpers.compatMap(values));
     }
@@ -539,7 +533,6 @@ public class VnfdBuilder implements Builder<Vnfd> {
       * @deprecated Use {#link #setSecurityGroupRule(Map)} instead.
       */
     @Deprecated(forRemoval = true)
-    @JsonIgnore
     public VnfdBuilder setSecurityGroupRule(final List<SecurityGroupRule> values) {
         return setSecurityGroupRule(CodeHelpers.compatMap(values));
     }
@@ -567,7 +560,6 @@ public class VnfdBuilder implements Builder<Vnfd> {
       * @deprecated Use {#link #setSwImageDesc(Map)} instead.
       */
     @Deprecated(forRemoval = true)
-    @JsonIgnore
     public VnfdBuilder setSwImageDesc(final List<SwImageDesc> values) {
         return setSwImageDesc(CodeHelpers.compatMap(values));
     }
@@ -600,6 +592,8 @@ public class VnfdBuilder implements Builder<Vnfd> {
         this._version = value;
         return this;
     }
+    
+    @JsonSetter("virtual-compute-desc")    
     public VnfdBuilder setVirtualComputeDesc(final Map<VirtualComputeDescKey, VirtualComputeDesc> values) {
         this._virtualComputeDesc = values;
         return this;
@@ -619,10 +613,10 @@ public class VnfdBuilder implements Builder<Vnfd> {
       * @deprecated Use {#link #setVirtualComputeDesc(Map)} instead.
       */
     @Deprecated(forRemoval = true)
-    @JsonIgnore
     public VnfdBuilder setVirtualComputeDesc(final List<VirtualComputeDesc> values) {
         return setVirtualComputeDesc(CodeHelpers.compatMap(values));
     }
+
     public VnfdBuilder setVirtualStorageDesc(final Map<VirtualStorageDescKey, VirtualStorageDesc> values) {
         this._virtualStorageDesc = values;
         return this;
@@ -642,7 +636,6 @@ public class VnfdBuilder implements Builder<Vnfd> {
       * @deprecated Use {#link #setVirtualStorageDesc(Map)} instead.
       */
     @Deprecated(forRemoval = true)
-    @JsonIgnore
     public VnfdBuilder setVirtualStorageDesc(final List<VirtualStorageDesc> values) {
         return setVirtualStorageDesc(CodeHelpers.compatMap(values));
     }
@@ -721,18 +714,24 @@ public class VnfdBuilder implements Builder<Vnfd> {
         private final Map<LifecycleManagementScriptKey, LifecycleManagementScript> _lifecycleManagementScript;
         private final String _localizationLanguage;
         private final ModifiableAttributes _modifiableAttributes;
+        @JsonProperty("product-info-description")
         private final String _productInfoDescription;
         private final String _productInfoName;
         @JsonProperty("product-name")
         private final String _productName;
+        @JsonProperty("provider")
         private final String _provider;
         private final Map<SecurityGroupRuleKey, SecurityGroupRule> _securityGroupRule;
         private final String _softwareVersion;
         private final Map<SwImageDescKey, SwImageDesc> _swImageDesc;
+        @JsonProperty("vdu")
         private Map<VduKey, Vdu> _vdu;
+        @JsonProperty("version")
         private final String _version;
+        @JsonProperty("virtual-compute-desc")
         private Map<VirtualComputeDescKey, VirtualComputeDesc> _virtualComputeDesc;
-        private final Map<VirtualStorageDescKey, VirtualStorageDesc> _virtualStorageDesc;
+        @JsonProperty("virtual-storage-desc")
+        private Map<VirtualStorageDescKey, VirtualStorageDesc> _virtualStorageDesc;
         private final List<String> _vnfmInfo;
         private final VnfdKey key;
     
@@ -881,9 +880,6 @@ public class VnfdBuilder implements Builder<Vnfd> {
             return _vdu = CodeHelpers.compatMap(values) ;
         }
         
-        public Map<VirtualComputeDescKey, VirtualComputeDesc> setVirtualComputeDesc(final List<VirtualComputeDesc> values) {
-            return _virtualComputeDesc = CodeHelpers.compatMap(values) ;
-        }        
         @Override
         public Map<VduKey, Vdu> getVdu() {
             return _vdu;
@@ -898,12 +894,22 @@ public class VnfdBuilder implements Builder<Vnfd> {
         public Map<VirtualComputeDescKey, VirtualComputeDesc> getVirtualComputeDesc() {
             return _virtualComputeDesc;
         }
+
+        @JsonSetter("virtual-compute-desc")
+        public Map<VirtualComputeDescKey, VirtualComputeDesc> setVirtualComputeDesc(final List<VirtualComputeDesc> values) {
+            return _virtualComputeDesc = CodeHelpers.compatMap(values) ;
+        }        
         
         @Override
         public Map<VirtualStorageDescKey, VirtualStorageDesc> getVirtualStorageDesc() {
             return _virtualStorageDesc;
         }
-        
+
+        @JsonSetter("virtual-storage-desc")
+        public Map<VirtualStorageDescKey, VirtualStorageDesc> setVirtualStorageDesc(final List<VirtualStorageDesc> values) {
+            return _virtualStorageDesc = CodeHelpers.compatMap(values) ;
+        }        
+                
         @Override
         public List<String> getVnfmInfo() {
             return _vnfmInfo;

@@ -1,4 +1,5 @@
 package org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.vnfd.virtual.compute.desc;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;
 import java.lang.Class;
 import java.lang.Deprecated;
@@ -13,6 +14,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+
+import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.vnfd.VirtualComputeDescBuilder;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.vnfd.virtual.compute.desc.virtual.cpu.Pinning;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.vnfd.virtual.compute.desc.virtual.cpu.VduCpuRequirements;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.vnfd.virtual.compute.desc.virtual.cpu.VduCpuRequirementsKey;
@@ -260,12 +263,13 @@ public class VirtualCpuBuilder implements Builder<VirtualCpu> {
         return new VirtualCpuImpl(this);
     }
 
-    private static final class VirtualCpuImpl
+    public static final class VirtualCpuImpl
         extends AbstractAugmentable<VirtualCpu>
         implements VirtualCpu {
     
         private final Uint32 _clock;
         private final String _cpuArchitecture;
+        @JsonProperty("num-virtual-cpu")
         private final Uint16 _numVirtualCpu;
         private final String _oversubscriptionPolicy;
         private final Pinning _pinning;
@@ -281,6 +285,10 @@ public class VirtualCpuBuilder implements Builder<VirtualCpu> {
             this._vduCpuRequirements = CodeHelpers.emptyToNull(base.getVduCpuRequirements());
         }
     
+        public VirtualCpuImpl() {
+        	this( new VirtualCpuBuilder());
+        }                
+        
         @Override
         public Uint32 getClock() {
             return _clock;
