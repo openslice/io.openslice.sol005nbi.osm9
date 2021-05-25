@@ -23,10 +23,10 @@ import java.util.Formatter;
 import java.util.List;
 import java.util.Map;
 
-import org.opendaylight.yang.gen.v1.urn.etsi.osm.yang.project.nsd.rev170228.project.nsd.catalog.Nsd;
 import org.eclipse.jdt.annotation.Nullable;
-import org.opendaylight.yang.gen.v1.urn.etsi.osm.yang.project.nsd.rev170228.nsd.constituent.vnfd.ConstituentVnfd;
-import org.opendaylight.yang.gen.v1.urn.etsi.osm.yang.project.nsd.rev170228.nsd.constituent.vnfd.ConstituentVnfdKey;
+import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.Nsd;
+import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.nsd.Df;
+import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.nsd.DfKey;
 
 public class OSM9NSRequirements {
     public Nsd nsDescriptor;
@@ -50,11 +50,11 @@ public class OSM9NSRequirements {
         StringBuilder stringBuilder = new StringBuilder();
         Formatter fmt = new Formatter(stringBuilder);
         fmt.format("<h3>%s</h3><br>", this.nsDescriptor.getName() );
-        fmt.format("<b>%s: </b>%s<br>", "Vendor", nsDescriptor.getVendor());
+        fmt.format("<b>%s: </b>%s<br>", "Vendor", nsDescriptor.getDesigner());
         fmt.format("<b>%s: </b>%s<br>", "Version", nsDescriptor.getVersion());
-        fmt.format("<b>%s: </b>%s<br>", "Description", nsDescriptor.getDescription());
-        if ( nsDescriptor.getConstituentVnfd() != null ) {
-        	fmt.format("<b>%s: </b>%d<br>", "VNF Count", nsDescriptor.getConstituentVnfd().size());
+        fmt.format("<b>%s: </b>%s<br>", "Description", nsDescriptor.getName());
+        if ( nsDescriptor.getDf() != null ) {
+        	fmt.format("<b>%s: </b>%d<br>", "VNF Count", nsDescriptor.getDf().size());
         }
         
         fmt.format("<b>%s: </b>%d<br>", "VM Count", vmCount);
@@ -63,10 +63,10 @@ public class OSM9NSRequirements {
         fmt.format("<b>%s: </b>%d GB<br>", "Storage", storageGB);
 
         fmt.format("<h2>%s</h2><br>", "ConstituentVnfds" );
-        if ( nsDescriptor.getConstituentVnfd() != null ) {
-            @Nullable Map<ConstituentVnfdKey, ConstituentVnfd> vl = nsDescriptor.getConstituentVnfd();
-            for (ConstituentVnfd constituentVnfd : vl.values()) {
-                fmt.format("<b>%s: </b>%s<br>", "VnfdId", constituentVnfd.getVnfdIdRef() );            	
+        if ( nsDescriptor.getDf() != null ) {
+            @Nullable Map<DfKey, Df> vl = nsDescriptor.getDf();
+            for (Df df : vl.values()) {
+                fmt.format("<b>%s: </b>%s<br>", "VnfdId", df.getId());            	
     		}        	
         }
         

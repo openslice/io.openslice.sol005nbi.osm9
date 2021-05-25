@@ -7,7 +7,9 @@ import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.Nullable;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.$YangModuleInfoImpl;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.LocalAffinityOrAntiAffinityRule;
+import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.nfv.NsdBuilder.NsdImpl;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.nsd.Df;
+import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.nsd.df.VnfProfileBuilder.VnfProfileImpl;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.nsd.df.vnf.profile.AffinityOrAntiAffinityGroup;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.nsd.df.vnf.profile.AffinityOrAntiAffinityGroupKey;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.nsd.df.vnf.profile.VirtualLinkConnectivity;
@@ -18,6 +20,9 @@ import org.opendaylight.yangtools.yang.binding.CodeHelpers;
 import org.opendaylight.yangtools.yang.binding.Identifiable;
 import org.opendaylight.yangtools.yang.common.QName;
 import org.opendaylight.yangtools.yang.common.Uint16;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * VNF profile to be used for the NS flavour.
@@ -97,6 +102,9 @@ import org.opendaylight.yangtools.yang.common.Uint16;
  * @see VnfProfileKey
  *
  */
+@JsonDeserialize(as = VnfProfileImpl.class)
+@JsonIgnoreProperties(value = {"localAffinityOrAntiAffinityRule"}, ignoreUnknown = true)
+//@JsonIgnoreProperties(value= {"virtualStorageDesc","extCpd","securityGroupRule","indicator","swImageDesc"}, ignoreUnknown = true)
 public interface VnfProfile
     extends
     ChildOf<Df>,

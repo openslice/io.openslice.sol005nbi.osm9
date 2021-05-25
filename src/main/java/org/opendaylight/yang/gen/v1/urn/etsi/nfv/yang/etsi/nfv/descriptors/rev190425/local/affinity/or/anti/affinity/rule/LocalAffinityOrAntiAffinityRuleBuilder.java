@@ -168,7 +168,7 @@ public class LocalAffinityOrAntiAffinityRuleBuilder implements Builder<LocalAffi
         return new LocalAffinityOrAntiAffinityRuleImpl(this);
     }
 
-    public static final class LocalAffinityOrAntiAffinityRuleImpl
+    private static final class LocalAffinityOrAntiAffinityRuleImpl
         extends AbstractAugmentable<LocalAffinityOrAntiAffinityRule>
         implements LocalAffinityOrAntiAffinityRule {
     

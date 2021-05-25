@@ -85,6 +85,12 @@
 		    <artifactId>jsr305</artifactId>
 		    <version>3.0.2</version>
 		</dependency>	
+		<!-- https://mvnrepository.com/artifact/com.google.code.findbugs/annotations -->
+		<dependency>
+		    <groupId>com.google.code.findbugs</groupId>
+		    <artifactId>annotations</artifactId>
+		    <version>3.0.1</version>
+		</dependency>
         <dependency>
             <groupId>org.opendaylight.yangtools</groupId>
             <artifactId>yang-common</artifactId>
@@ -102,14 +108,7 @@
 		    <artifactId>yang-binding</artifactId>
 		    <version>0.7.4-Lithium-SR4</version>
 		</dependency>
-		
-		<!-- https://mvnrepository.com/artifact/com.google.code.findbugs/annotations -->
-		<dependency>
-		    <groupId>com.google.code.findbugs</groupId>
-		    <artifactId>annotations</artifactId>
-		    <version>3.0.1</version>
-		</dependency>
-        		
+		        		
 		<!-- Dependencies for OSMClient START -->
         <dependency>
             <groupId>io.openslice.sol005nbi</groupId>
@@ -223,8 +222,8 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-compiler-plugin</artifactId>
 					<configuration>
-						<source>1.8</source>
-						<target>1.8</target>
+						<source>11</source>
+						<target>11</target>
 					</configuration>
 				</plugin>
 				<plugin>

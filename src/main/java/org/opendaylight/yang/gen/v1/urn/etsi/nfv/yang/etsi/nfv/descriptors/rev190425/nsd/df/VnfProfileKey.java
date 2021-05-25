@@ -1,16 +1,24 @@
 package org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.nsd.df;
+import com.fasterxml.jackson.databind.DeserializationContext;
+import com.fasterxml.jackson.databind.KeyDeserializer;
 import com.google.common.base.MoreObjects;
+
+import java.io.IOException;
 import java.lang.Override;
 import java.lang.String;
 import java.util.Objects;
 import org.opendaylight.yangtools.yang.binding.CodeHelpers;
 import org.opendaylight.yangtools.yang.binding.Identifier;
 
-public class VnfProfileKey
+public class VnfProfileKey extends KeyDeserializer
  implements Identifier<VnfProfile> {
     private static final long serialVersionUID = -691004659524246111L;
     private final String _id;
 
+    public VnfProfileKey() {
+    	// This might be also null, or not id/flavor not final.
+        this._id = "";
+    }
 
     public VnfProfileKey(String _id) {
     
@@ -58,5 +66,11 @@ public class VnfProfileKey
         CodeHelpers.appendValue(helper, "_id", _id);
         return helper.toString();
     }
+    
+	@Override
+	public Object deserializeKey(String key, DeserializationContext ctxt) throws IOException {
+		// TODO Auto-generated method stub
+		return this.toString();
+	}    
 }
 

@@ -1,4 +1,6 @@
 package org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.nsd.df;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.base.MoreObjects;
 import java.lang.Class;
 import java.lang.Deprecated;
@@ -14,6 +16,7 @@ import java.util.Map;
 import java.util.Objects;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.local.affinity.or.anti.affinity.rule.LocalAffinityOrAntiAffinityRule;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.local.affinity.or.anti.affinity.rule.LocalAffinityOrAntiAffinityRuleKey;
+import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.nfv.NsdBuilder;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.nsd.df.vnf.profile.AffinityOrAntiAffinityGroup;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.nsd.df.vnf.profile.AffinityOrAntiAffinityGroupKey;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.nsd.df.vnf.profile.VirtualLinkConnectivity;
@@ -347,20 +350,22 @@ public class VnfProfileBuilder implements Builder<VnfProfile> {
         return new VnfProfileImpl(this);
     }
 
-    private static final class VnfProfileImpl
+    public static final class VnfProfileImpl
         extends AbstractAugmentable<VnfProfile>
         implements VnfProfile {
     
         private final Map<AffinityOrAntiAffinityGroupKey, AffinityOrAntiAffinityGroup> _affinityOrAntiAffinityGroup;
         private final String _flavourId;
+        @JsonProperty("id")
         private final String _id;
         private final String _instantiationLevel;
         private final Map<LocalAffinityOrAntiAffinityRuleKey, LocalAffinityOrAntiAffinityRule> _localAffinityOrAntiAffinityRule;
         private final Uint16 _maxNumberOfInstances;
         private final Uint16 _minNumberOfInstances;
         private final Map<VirtualLinkConnectivityKey, VirtualLinkConnectivity> _virtualLinkConnectivity;
+        @JsonProperty("vnfd-id")
         private final String _vnfdId;
-        private final VnfProfileKey key;
+        private VnfProfileKey key;
     
         VnfProfileImpl(VnfProfileBuilder base) {
             super(base.augmentation);
@@ -380,6 +385,10 @@ public class VnfProfileBuilder implements Builder<VnfProfile> {
             this._vnfdId = base.getVnfdId();
         }
     
+        public VnfProfileImpl(){
+        	this( new VnfProfileBuilder() );
+        }           
+        
         @Override
         public VnfProfileKey key() {
             return key;

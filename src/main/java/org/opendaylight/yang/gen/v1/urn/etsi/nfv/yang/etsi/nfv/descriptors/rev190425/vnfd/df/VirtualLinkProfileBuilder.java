@@ -291,7 +291,6 @@ public class VirtualLinkProfileBuilder implements Builder<VirtualLinkProfile> {
         private final Map<AffinityOrAntiAffinityGroupKey, AffinityOrAntiAffinityGroup> _affinityOrAntiAffinityGroup;
         private Object _flavour;
         private final String _id;
-        @JsonDeserialize(keyUsing = LocalAffinityOrAntiAffinityRuleKey.class)        
         private final Map<LocalAffinityOrAntiAffinityRuleKey, LocalAffinityOrAntiAffinityRule> _localAffinityOrAntiAffinityRule;
         private final MaxBitRateRequirements _maxBitRateRequirements;
         private final MinBitRateRequirements _minBitRateRequirements;

@@ -27,14 +27,13 @@ import java.io.InputStream;
 import org.apache.commons.compress.archivers.tar.TarArchiveEntry;
 import org.apache.commons.compress.archivers.tar.TarArchiveInputStream;
 import org.apache.commons.compress.compressors.gzip.GzipCompressorInputStream;
+import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.Nsd;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
 import io.openslice.sol005nbi.OSMUtil.OSMNSExtractor;
-
-import org.opendaylight.yang.gen.v1.urn.etsi.osm.yang.project.nsd.rev170228.project.nsd.catalog.Nsd;
 
 
 public class OSM9NSExtractor implements OSMNSExtractor{
@@ -113,10 +112,18 @@ public class OSM9NSExtractor implements OSMNSExtractor{
         	if (tr.get(0) != null){ 
         		tr = tr.get(0);
         	}
+        	if(tr.get("nsd") != null)
+        	{
+        		tr = tr.get("nsd");
+        	}
+        	if (tr.get(0) != null){ 
+        		tr = tr.get(0);
+        	}
 			String s = tr.toString();			
 			s = s.replaceAll("rw-nsd:", ""); //some yaml files contain  rw-nsd: prefix in every key which is not common in json    					
 			s = s.replaceAll("nsd:", ""); //some yaml files contain  nsd: prefix in every key which is not common in json			
 			descriptor = mapper.readValue( s , Nsd.class);
+			System.out.println(descriptor);
         } else {
 			System.out.println("ERROR: The yaml file does not contain nsd tag! " );
         }

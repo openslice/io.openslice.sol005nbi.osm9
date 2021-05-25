@@ -1,4 +1,8 @@
 package org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.nsd;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.google.common.base.MoreObjects;
 import java.lang.Class;
 import java.lang.Deprecated;
@@ -28,6 +32,7 @@ import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev19
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.nsd.df.VirtualLinkProfile;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.nsd.df.VirtualLinkProfileKey;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.nsd.df.VnfProfile;
+import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.nsd.df.VnfProfileBuilder.VnfProfileImpl;
 import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev190425.nsd.df.VnfProfileKey;
 import org.opendaylight.yangtools.concepts.Builder;
 import org.opendaylight.yangtools.yang.binding.AbstractAugmentable;
@@ -391,6 +396,7 @@ public class DfBuilder implements Builder<Df> {
       * @throws NullPointerException if the list contains a null entry
       * @deprecated Use {#link #setVnfProfile(Map)} instead.
       */
+
     @Deprecated(forRemoval = true)
     public DfBuilder setVnfProfile(final List<VnfProfile> values) {
         return setVnfProfile(CodeHelpers.compatMap(values));
@@ -448,7 +454,7 @@ public class DfBuilder implements Builder<Df> {
         return new DfImpl(this);
     }
 
-    private static final class DfImpl
+    public static final class DfImpl
         extends AbstractAugmentable<Df>
         implements Df {
     
@@ -456,6 +462,7 @@ public class DfBuilder implements Builder<Df> {
         private final String _defaultInstantiationLevel;
         private final Map<DependenciesKey, Dependencies> _dependencies;
         private final String _flavourKey;
+        @JsonProperty("id")
         private final String _id;
         private final Map<MonitoredInfoKey, MonitoredInfo> _monitoredInfo;
         private final Map<NsInstantiationLevelKey, NsInstantiationLevel> _nsInstantiationLevel;
@@ -463,7 +470,7 @@ public class DfBuilder implements Builder<Df> {
         private final Map<PnfProfileKey, PnfProfile> _pnfProfile;
         private final Map<ScalingAspectKey, ScalingAspect> _scalingAspect;
         private final Map<VirtualLinkProfileKey, VirtualLinkProfile> _virtualLinkProfile;
-        private final Map<VnfProfileKey, VnfProfile> _vnfProfile;
+        private Map<VnfProfileKey, VnfProfile> _vnfProfile;
         private final DfKey key;
     
         DfImpl(DfBuilder base) {
@@ -486,7 +493,32 @@ public class DfBuilder implements Builder<Df> {
             this._virtualLinkProfile = CodeHelpers.emptyToNull(base.getVirtualLinkProfile());
             this._vnfProfile = CodeHelpers.emptyToNull(base.getVnfProfile());
         }
-    
+
+        public DfImpl() {
+        	this( new DfBuilder());
+        }
+
+//        public Map<VnfProfileKey, VnfProfile> setVnfProfile(final List<VnfProfile> values) {
+//            return _vnfProfile = CodeHelpers.compatMap(values) ;
+//        }
+        
+        @JsonSetter("vnf-profile")        
+        public Map<VnfProfileKey, VnfProfile> setVnfProfile(final List<VnfProfile> values) {
+        	if(values==null)
+        		return null;
+        	if(values.isEmpty())
+        		return null;
+        	else
+        	{
+                Map<VnfProfileKey,VnfProfile> result = new HashMap<>();
+	            for(VnfProfile value:values) {
+	                result.put(new VnfProfileKey(value.getId()),value);
+	            }
+	            this._vnfProfile=result;
+	            return result;
+        	}
+        }
+
         @Override
         public DfKey key() {
             return key;

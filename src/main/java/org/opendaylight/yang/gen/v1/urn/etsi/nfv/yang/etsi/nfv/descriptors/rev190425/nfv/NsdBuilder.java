@@ -501,7 +501,7 @@ public class NsdBuilder implements Builder<Nsd> {
         private final String _certificate;
         private final String _designer;
         private Map<DfKey, Df> _df;
-        @JsonProperty("_id")
+        @JsonProperty("id")
         private final String _id;
         private final String _invariantId;
         private final Map<LifecycleManagementScriptKey, LifecycleManagementScript> _lifecycleManagementScript;
@@ -511,8 +511,10 @@ public class NsdBuilder implements Builder<Nsd> {
         private final List<String> _pnfdId;
         private final Map<SapdKey, Sapd> _sapd;
         private final String _signature;
+        @JsonProperty("version")
         private final String _version;
         private final Map<VirtualLinkDescKey, VirtualLinkDesc> _virtualLinkDesc;
+        @JsonProperty("vnfd-id")
         private final List<String> _vnfdId;
         private final Map<VnffgdKey, Vnffgd> _vnffgd;
         private final NsdKey key;
@@ -572,8 +574,6 @@ public class NsdBuilder implements Builder<Nsd> {
             return _designer;
         }
         
-
-
         public Map<DfKey, Df> setDf(final List<Df> values) {
             return _df = CodeHelpers.compatMap(values) ;
         }

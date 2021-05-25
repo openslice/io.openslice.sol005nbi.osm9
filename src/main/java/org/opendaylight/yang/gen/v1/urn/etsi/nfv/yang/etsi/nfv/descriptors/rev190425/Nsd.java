@@ -694,7 +694,7 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
  *
  */
 @JsonDeserialize(as = NsdImpl.class)
-@JsonIgnoreProperties(value= {"df","virtualStorageDesc","extCpd","securityGroupRule","indicator","swImageDesc"}, ignoreUnknown = true)
+@JsonIgnoreProperties(value= {"virtualStorageDesc","extCpd","securityGroupRule","indicator","swImageDesc"}, ignoreUnknown = true)
 public interface Nsd
     extends
     DataObject,
