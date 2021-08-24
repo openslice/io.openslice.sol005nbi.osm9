@@ -2,10 +2,13 @@ package OSM9NBIClient;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.eclipse.jdt.annotation.Nullable;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.opendaylight.yang.gen.v1.urn.etsi.osm.yang.project.nsd.rev170228.nsd.constituent.vnfd.ConstituentVnfd;
 import org.opendaylight.yang.gen.v1.urn.etsi.osm.yang.project.nsd.rev170228.nsd.constituent.vnfd.ConstituentVnfdKey;
@@ -22,50 +25,155 @@ import org.opendaylight.yang.gen.v1.urn.etsi.nfv.yang.etsi.nfv.descriptors.rev19
 
 import org.springframework.http.ResponseEntity;
 
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import OSM9NBIClient.NSInstantiateInstanceRequestPayload.NInterface;
 import OSM9NBIClient.NSInstantiateInstanceRequestPayload.Vdu;
+import OSM9Util.OSM9VNFReq.OSM9VNFRequirements;
+import io.openslice.sol005nbi.OSMClient;
 
 public class OSM9NBIClientT {
 	
 	public static void main(String args[]) {
 	    OSM9Client OSM9Client = new OSM9Client("https://10.10.10.41:9999","admin","admin","admin");
+		String body="{\"username\":\"ioannis\",\"domain_name\":\"test\",\"password\":\"123\",\"projects\":[\"admin\",\"test\"],\"project_role_mappings\":[{\"project\":\"admin\",\"role\":\"system_admin\"},{\"project\":\"test\",\"role\":\"system_admin\"}]}";
+		//{"username":"ioannis","domain_name":"test","password":"123","projects":["admin","test"],"project_role_mappings":[{"project":"admin","role":"system_admin"},{"project":"test","role":"system_admin"}]}
+		//String body = payload;
+
+//		//PROJECT CREATE
+//		ProjectCreateRequestPayload payloadCreateProject = new ProjectCreateRequestPayload();
+//		payloadCreateProject.setName("test5");
+//		payloadCreateProject.setAdmin(true);
+//		payloadCreateProject.setDomain_name("test");
+//		OSM9Client.createProject(payloadCreateProject.toJSON());
+		
+//		//PROJECT EDIT
+//		ProjectEditRequestPayload payloadEditProject = new ProjectEditRequestPayload();
+//		payloadEditProject.setAdmin(false);
+//		payloadEditProject.setName("test6");
+//		OSM9Client.editProject("521ff1e9-f980-475f-9266-c428de028f37",payloadEditProject.toJSON());
+		
+		//OSM9Client.getProjectDeleteResponse("b127ae37-b39a-4c3e-abe8-8ffb2b4bd61f");
+		
+//	    //USER CREATE
+//		UserCreateRequestPayload payloadNewUser = new UserCreateRequestPayload();
+//		payloadNewUser.setUsername("ioannis3");
+//		payloadNewUser.setDomain_name("test");
+//		payloadNewUser.setPassword("123");
+//		List<String> tmpProjects = new ArrayList<String>();
+//		tmpProjects.add("admin");
+//		tmpProjects.add("test");
+//		payloadNewUser.setProjects(tmpProjects);
+//		ProjectRoleMapping prm = new ProjectRoleMapping("admin","system_admin");
+//		List<ProjectRoleMapping> prml = new ArrayList<ProjectRoleMapping>();
+//		prml.add(prm);
+//		prm = new ProjectRoleMapping("test","system_admin");
+//		prml.add(prm);
+//		payloadNewUser.setProject_role_mappings(prml);
+//		//System.out.println("Payload "+payloadNewUser.toJSON());
+//	    OSM9Client.createUser(payloadNewUser.toJSON());
 	    
-	    System.out.println("************************");
-	    System.out.println("Getting Users");
-	    System.out.println("************************");
-	    OSM9Client.getUsers();
-	    System.out.println("************************");
-	    System.out.println("Getting VNFPackages");
-	    System.out.println("************************");
-	    OSM9Client.getVNFPackages();		
-	    System.out.println("************************");
-	    System.out.println("Getting VNFDs");
-	    System.out.println("************************");
-		Vnfd[] vnfds = OSM9Client.getVNFDs();
-		if(vnfds!=null)
-		{
-			for (Vnfd v : vnfds) {
-				System.out.println("=== LIST VNFDs POJO object response: " + v.toString());			
-				System.out.println("=== LIST VNFDs POJO object id: " + v.getId() + ", Name: " + v.getProductName());
-				Vnfd tmp_vnfd = OSM9Client.getVNFDbyID(v.getId());
-				System.out.println("=== LIST VNFDs POJO object id: " + tmp_vnfd.getId() + ", Name: " + tmp_vnfd.getProductName());			
-			}
+	    //USER EDIT
+//		UserEditRequestPayload payloadEditUser = new UserEditRequestPayload();
+//		//payloadEditUser.setUsername("ioannis3");
+//		payloadEditUser.setPassword("123");
+//		List<String> tmpProjectsEdit = new ArrayList<String>();
+//		tmpProjectsEdit.add("admin");
+//		tmpProjectsEdit.add("test");
+//		tmpProjectsEdit.add("test2");
+//		payloadEditUser.setProjects(tmpProjectsEdit);
+//		List<ProjectRoleMapping> prmlEdit = new ArrayList<ProjectRoleMapping>();
+//		prmlEdit.add(new ProjectRoleMapping("admin","system_admin"));
+//		prmlEdit.add(new ProjectRoleMapping("test","project_user"));
+//		prmlEdit.add(new ProjectRoleMapping("test2","project_user"));
+//		payloadEditUser.setProject_role_mappings(prmlEdit);		
+////		List<ProjectRoleMapping> prmlEdit2 = new ArrayList<ProjectRoleMapping>();
+////		prmlEdit2.add(new ProjectRoleMapping("test2","system_admin"));
+////		payloadEditUser.setAdd_project_role_mappings(prmlEdit2);
+////		System.out.println("Payload "+payloadEditUser.toJSON());	    
+//		OSM9Client.editUser("1914ec5b-af9a-4f32-8806-b6aa29b302f2",payloadEditUser.toJSON());
+		
+		
+//		//VIM CREATE
+//	    VIMCreateRequestPayload payloadNewVIM = new VIMCreateRequestPayload();
+//		payloadNewVIM.setName("CloudVille3");
+//		payloadNewVIM.setVim_type("openstack");
+//		payloadNewVIM.setVim_url("http://10.80.0.11:5000/v3/");
+//		payloadNewVIM.setVim_tenant_name("OSMFIVE");
+//		payloadNewVIM.setVim_user("osmfivevim");
+//		payloadNewVIM.setVim_password("osmfivevim5g#");
+//	    OSM9Client.createVim(payloadNewVIM.toJSON());
+		ResponseEntity<String> vims_list_entity = OSM9Client.getVIMs();
+		if (vims_list_entity == null || vims_list_entity.getStatusCode().is4xxClientError()
+				|| vims_list_entity.getStatusCode().is5xxServerError()) {
+			System.out.println("VIMs List Get Request failed. Status Code:" + vims_list_entity.getStatusCode().toString()
+					+ ", Payload:" + vims_list_entity.getBody().toString());
+		} else {
+			// NS action starts
+			System.out.println("Got VIM list "+vims_list_entity.getBody());
+		}			
+		
+		try {
+			ResponseEntity<String> vnfd_package_content = OSM9Client.getVNFDPackageContent("5261da07-b38f-4115-863c-1465893bd8d3");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-	    System.out.println("************************");
-	    System.out.println("Getting NSDescriptors");
-	    System.out.println("************************");
-	    OSM9Client.getNSDescriptors();		
-	    System.out.println("************************");
-	    System.out.println("Getting NSDs");
-	    System.out.println("************************");
-		Nsd[] nsds = OSM9Client.getNSDs();
-		for (Nsd v : nsds) {
-			System.out.println("=== LIST NSDs POJO object response: " + v.toString());
-			System.out.println("=== LIST NSDs POJO object id: " + v.getId() + ", Name: " + v.getName());			
-			Nsd tmp_nsd = OSM9Client.getNSDbyID(v.getId());
-			System.out.println("=== LIST NSDs POJO object id: " + tmp_nsd.getId() + ", Name: " + tmp_nsd.getName());			
-		}
-		System.out.println("Working Directory = " +System.getProperty("user.dir"));
+		
+		JSONArray tmp = OSM9Client.getAllNSInstanceInfo();
+		System.out.println(tmp.toString());		
+//	    
+//		//VIM EDIT
+//		VIMEditRequestPayload payloadEditVIM = new VIMEditRequestPayload();
+//		payloadEditVIM.setName("CloudVille");
+//		payloadEditVIM.setVim_url("http://10.80.0.11:5000/v3/");
+//		payloadEditVIM.setVim_type("Openstack");
+//		payloadEditVIM.setDatacenter("datacenter");
+//		payloadEditVIM.setDescription("description");
+//		payloadEditVIM.setVim_password("osmfivevim5g#");
+//		payloadEditVIM.setVim_user("OSMFIVE");
+//		String vim_id = "6d080e3b-cbd1-4c4e-a114-9c556c285eb4";		
+//	    OSM9Client.editVim(vim_id,payloadEditVIM.toJSON());
+
+	    
+//	    System.out.println("************************");
+//	    System.out.println("Getting Users");
+//	    System.out.println("************************");
+//	    OSM9Client.getUsers();
+//	    System.out.println("************************");
+//	    System.out.println("Getting VNFPackages");
+//	    System.out.println("************************");
+//	    OSM9Client.getVNFPackages();		
+//	    System.out.println("************************");
+//	    System.out.println("Getting VNFDs");
+//	    System.out.println("************************");
+//		Vnfd[] vnfds = OSM9Client.getVNFDs();
+//		if(vnfds!=null)
+//		{
+//			for (Vnfd v : vnfds) {
+//				System.out.println("=== LIST VNFDs POJO object response: " + v.toString());			
+//				System.out.println("=== LIST VNFDs POJO object id: " + v.getId() + ", Name: " + v.getProductName());
+//				Vnfd tmp_vnfd = OSM9Client.getVNFDbyID(v.getId());
+//				System.out.println("=== LIST VNFDs POJO object id: " + tmp_vnfd.getId() + ", Name: " + tmp_vnfd.getProductName());			
+//			}
+//		}
+//	    System.out.println("************************");
+//	    System.out.println("Getting NSDescriptors");
+//	    System.out.println("************************");
+//	    OSM9Client.getNSDescriptors();		
+//	    System.out.println("************************");
+//	    System.out.println("Getting NSDs");
+//	    System.out.println("************************");
+//		Nsd[] nsds = OSM9Client.getNSDs();
+//		for (Nsd v : nsds) {
+//			System.out.println("=== LIST NSDs POJO object response: " + v.toString());
+//			System.out.println("=== LIST NSDs POJO object id: " + v.getId() + ", Name: " + v.getName());			
+//			Nsd tmp_nsd = OSM9Client.getNSDbyID(v.getId());
+//			System.out.println("=== LIST NSDs POJO object id: " + tmp_nsd.getId() + ", Name: " + tmp_nsd.getName());			
+//		}
+//		System.out.println("Working Directory = " +System.getProperty("user.dir"));
 //		
 //		//Create VNFD
 //	    System.out.println("************************");
@@ -376,4 +484,5 @@ public class OSM9NBIClientT {
 ////		OSM9ClientInit();
 ////	}
 //	
+
 }

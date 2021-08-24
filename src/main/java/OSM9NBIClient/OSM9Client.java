@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.Charset;
 import java.security.KeyManagementException;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -41,6 +42,7 @@ import java.security.NoSuchAlgorithmException;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
@@ -69,8 +71,6 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.HttpStatusCodeException;
 import org.springframework.web.client.RestTemplate;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 
@@ -224,11 +224,42 @@ public class OSM9Client implements OSMClient {
 		return null;
 	}
 
-	public void getNSDescriptors() {
-		ResponseEntity<String> response = this.getOSMResponse("/osm/nsd/v1/ns_descriptors/");
-		System.out.printf(response.getHeaders().toString());
-		System.out.printf(response.getBody());
-	}
+	public ResponseEntity<String> getVNFDescriptorsList() {
+		System.out.println("Get VIMs Start");
+		// Make an authenticated request for users
+		RestTemplate restTemplate = new RestTemplate(requestFactory);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("content-type", "application/json");
+		headers.add("accept", "application/json");
+		headers.add("Authorization", "Bearer " + this.getMANOAuthorizationBasicHeader());
+		ResponseEntity<String> get_vnfd_entities = null;
+		HttpEntity<String> request = new HttpEntity<String>(headers);
+		System.out.println(request.toString());
+		try {
+			get_vnfd_entities = restTemplate.exchange(this.getMANOApiEndpoint() + "/osm/vnfpkgm/v1/vnf_packages/",
+					HttpMethod.GET, request, String.class);
+		} catch (RuntimeException e) {
+			if (get_vnfd_entities != null) {
+				if (get_vnfd_entities.getStatusCode().series() == HttpStatus.Series.SERVER_ERROR) {
+					// handle SERVER_ERROR
+					System.out.println("Server ERROR:" + get_vnfd_entities.getStatusCode().toString());
+				} else if (get_vnfd_entities.getStatusCode().series() == HttpStatus.Series.CLIENT_ERROR) {
+					// handle CLIENT_ERROR
+					System.out.println("Client ERROR:" + get_vnfd_entities.getStatusCode().toString());
+					if (get_vnfd_entities.getStatusCode() == HttpStatus.NOT_FOUND) {
+						System.out.println("Unknown Response Status");
+					}
+				}
+				System.out.println("Error! " + get_vnfd_entities.getBody());
+			} else {
+				System.out.println("Error! Null Response, " + e.getMessage());
+			}
+		}
+		System.out.println(get_vnfd_entities.getHeaders().toString());
+		System.out.println(get_vnfd_entities.getBody());
+		System.out.println(get_vnfd_entities.toString());
+		return get_vnfd_entities;		
+	}	
 
 	public Nsd[] getNSDs() {
 		ResponseEntity<String> response = this.getOSMResponse("/osm/nsd/v1/ns_descriptors");
@@ -372,6 +403,29 @@ public class OSM9Client implements OSMClient {
 		}
 	}
 
+	public ResponseEntity<String> getVNFDPackageContent(String vnfd_id) throws IOException {
+
+		RestTemplate restTemplate = new RestTemplate(requestFactory);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("content-type", "application/zip");
+		headers.add("Accept", "application/zip,application/yaml");
+		headers.add("Authorization", "Bearer " + this.getMANOAuthorizationBasicHeader());
+		HttpEntity<String> send_zip_request = new HttpEntity<String>(headers);
+		ResponseEntity<String> get_vnfd_package_content = null;
+		try {
+			get_vnfd_package_content = restTemplate.exchange(
+					this.getMANOApiEndpoint() + "/osm/vnfpkgm/v1/vnf_packages/" + vnfd_id + "/vnfd",
+					HttpMethod.GET, send_zip_request, String.class);
+		} catch (HttpStatusCodeException e) {
+			return ResponseEntity.status(e.getRawStatusCode()).headers(e.getResponseHeaders())
+					.body(e.getResponseBodyAsString());
+		}
+		FileUtils.writeStringToFile(new File("pathname"), get_vnfd_package_content.getBody());
+		//.writeByteArrayToFile(new File("pathname"), get_vnfd_package_content.getBody().getBytes(Charset.defaultCharset()));
+		System.out.println(get_vnfd_package_content);
+		return get_vnfd_package_content;
+	}	
+	
 	public ResponseEntity<String> uploadNSDPackageContent(String nsd_id, byte[] allBytes) throws IOException {
 		RestTemplate restTemplate = new RestTemplate(requestFactory);
 		HttpHeaders headers = new HttpHeaders();
@@ -513,6 +567,18 @@ public class OSM9Client implements OSMClient {
 		if (!ns_instance_id_info_response.getStatusCode().is4xxClientError()
 				&& !ns_instance_id_info_response.getStatusCode().is5xxServerError()) {
 			JSONObject ns_instance_info_obj = new JSONObject(ns_instance_id_info_response.getBody());
+			return ns_instance_info_obj;
+		} else
+			return null;
+	}
+
+	public JSONArray getAllNSInstanceInfo() {
+		ResponseEntity<String> ns_instance_id_info_response = this
+				.getOSMResponse("/osm/nslcm/v1/ns_instances/");
+		logger.info("Status of Request: " + ns_instance_id_info_response.getStatusCode());
+		if (!ns_instance_id_info_response.getStatusCode().is4xxClientError()
+				&& !ns_instance_id_info_response.getStatusCode().is5xxServerError()) {
+			JSONArray ns_instance_info_obj = new JSONArray(ns_instance_id_info_response.getBody());
 			return ns_instance_info_obj;
 		} else
 			return null;
@@ -1022,6 +1088,125 @@ public class OSM9Client implements OSMClient {
 		}
 	}
 
+
+	public void getNSDescriptors() {
+		ResponseEntity<String> response = this.getOSMResponse("/osm/nsd/v1/ns_descriptors/");
+		System.out.printf(response.getHeaders().toString());
+		System.out.printf(response.getBody());
+	}
+	
+	public ResponseEntity<String> getNSDescriptorsList() {
+		System.out.println("Get NSDs Start");
+		// Make an authenticated request for users
+		RestTemplate restTemplate = new RestTemplate(requestFactory);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("content-type", "application/json");
+		headers.add("accept", "application/json");
+		headers.add("Authorization", "Bearer " + this.getMANOAuthorizationBasicHeader());
+		ResponseEntity<String> get_nsd_entities = null;
+		HttpEntity<String> request = new HttpEntity<String>(headers);
+		System.out.println(request.toString());
+		try {
+			get_nsd_entities = restTemplate.exchange(this.getMANOApiEndpoint() + "/osm/nsd/v1/ns_descriptors/",
+					HttpMethod.GET, request, String.class);
+		} catch (RuntimeException e) {
+			if (get_nsd_entities != null) {
+				if (get_nsd_entities.getStatusCode().series() == HttpStatus.Series.SERVER_ERROR) {
+					// handle SERVER_ERROR
+					System.out.println("Server ERROR:" + get_nsd_entities.getStatusCode().toString());
+				} else if (get_nsd_entities.getStatusCode().series() == HttpStatus.Series.CLIENT_ERROR) {
+					// handle CLIENT_ERROR
+					System.out.println("Client ERROR:" + get_nsd_entities.getStatusCode().toString());
+					if (get_nsd_entities.getStatusCode() == HttpStatus.NOT_FOUND) {
+						System.out.println("Unknown Response Status");
+					}
+				}
+				System.out.println("Error! " + get_nsd_entities.getBody());
+			} else {
+				System.out.println("Error! Null Response, " + e.getMessage());
+			}
+		}
+		System.out.println(get_nsd_entities.getHeaders().toString());
+		System.out.println(get_nsd_entities.getBody());
+		System.out.println(get_nsd_entities.toString());
+		return get_nsd_entities;		
+	}		
+	
+	public ResponseEntity<String> getNSInstancesList() {
+		System.out.println("Get NSInstances Start");
+		// Make an authenticated request for users
+		RestTemplate restTemplate = new RestTemplate(requestFactory);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("content-type", "application/json");
+		headers.add("accept", "application/json");
+		headers.add("Authorization", "Bearer " + this.getMANOAuthorizationBasicHeader());
+		ResponseEntity<String> get_ns_instances = null;
+		HttpEntity<String> request = new HttpEntity<String>(headers);
+		System.out.println(request.toString());
+		try {
+			get_ns_instances = restTemplate.exchange(this.getMANOApiEndpoint() + "/osm/nsd/v1/ns_descriptors/",
+					HttpMethod.GET, request, String.class);
+		} catch (RuntimeException e) {
+			if (get_ns_instances != null) {
+				if (get_ns_instances.getStatusCode().series() == HttpStatus.Series.SERVER_ERROR) {
+					// handle SERVER_ERROR
+					System.out.println("Server ERROR:" + get_ns_instances.getStatusCode().toString());
+				} else if (get_ns_instances.getStatusCode().series() == HttpStatus.Series.CLIENT_ERROR) {
+					// handle CLIENT_ERROR
+					System.out.println("Client ERROR:" + get_ns_instances.getStatusCode().toString());
+					if (get_ns_instances.getStatusCode() == HttpStatus.NOT_FOUND) {
+						System.out.println("Unknown Response Status");
+					}
+				}
+				System.out.println("Error! " + get_ns_instances.getBody());
+			} else {
+				System.out.println("Error! Null Response, " + e.getMessage());
+			}
+		}
+		System.out.println(get_ns_instances.getHeaders().toString());
+		System.out.println(get_ns_instances.getBody());
+		System.out.println(get_ns_instances.toString());
+		return get_ns_instances;		
+	}		
+	
+	public ResponseEntity<String> getVIMs()
+	{
+		System.out.println("Get VIMs Start");
+		// Make an authenticated request for users
+		RestTemplate restTemplate = new RestTemplate(requestFactory);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("content-type", "application/json");
+		headers.add("accept", "application/json");
+		headers.add("Authorization", "Bearer " + this.getMANOAuthorizationBasicHeader());
+		ResponseEntity<String> get_vim_entities = null;
+		HttpEntity<String> request = new HttpEntity<String>(headers);
+		System.out.println(request.toString());
+		try {
+			get_vim_entities = restTemplate.exchange(this.getMANOApiEndpoint() + "/osm/admin/v1/vim_accounts/",
+					HttpMethod.GET, request, String.class);
+		} catch (RuntimeException e) {
+			if (get_vim_entities != null) {
+				if (get_vim_entities.getStatusCode().series() == HttpStatus.Series.SERVER_ERROR) {
+					// handle SERVER_ERROR
+					System.out.println("Server ERROR:" + get_vim_entities.getStatusCode().toString());
+				} else if (get_vim_entities.getStatusCode().series() == HttpStatus.Series.CLIENT_ERROR) {
+					// handle CLIENT_ERROR
+					System.out.println("Client ERROR:" + get_vim_entities.getStatusCode().toString());
+					if (get_vim_entities.getStatusCode() == HttpStatus.NOT_FOUND) {
+						System.out.println("Unknown Response Status");
+					}
+				}
+				System.out.println("Error! " + get_vim_entities.getBody());
+			} else {
+				System.out.println("Error! Null Response, " + e.getMessage());
+			}
+		}
+		System.out.println(get_vim_entities.getHeaders().toString());
+		System.out.println(get_vim_entities.getBody());
+		System.out.println(get_vim_entities.toString());
+		return get_vim_entities;
+	}
+	
 	public ResponseEntity<String> createVim(String payload) {
 		RestTemplate restTemplate = new RestTemplate(requestFactory);
 		HttpHeaders headers = new HttpHeaders();

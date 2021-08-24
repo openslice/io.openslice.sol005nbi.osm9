@@ -503,6 +503,7 @@ public class NsdBuilder implements Builder<Nsd> {
         private Map<DfKey, Df> _df;
         @JsonProperty("id")
         private final String _id;
+        @JsonProperty("_id")
         private final String _invariantId;
         private final Map<LifecycleManagementScriptKey, LifecycleManagementScript> _lifecycleManagementScript;
         @JsonProperty("name")
