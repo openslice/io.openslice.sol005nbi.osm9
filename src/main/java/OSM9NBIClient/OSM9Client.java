@@ -140,6 +140,7 @@ public class OSM9Client implements OSMClient {
 					.build();
 			requestFactory = new HttpComponentsClientHttpRequestFactory();
 			requestFactory.setHttpClient(httpClient);
+			requestFactory.setConnectTimeout(2000);
 
 		} catch (KeyManagementException e) {
 			// TODO Auto-generated catch block
